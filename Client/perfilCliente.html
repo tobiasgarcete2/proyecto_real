@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - JobHunter</title>
+    <link rel="stylesheet" href="assets/css/perfilCliente.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo">
+            <img src="./assets/img/logos.png" alt="Logo de la marca">
+        </div>
+        <nav>
+            <ul class="enlaces-nav">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="eventos.html">Destacados</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container perfil-container mt-5">
+        <div class="perfil-info">
+            <div class="foto-perfil">
+                <img src="assets/img/default-user.png" alt="Foto de perfil" id="profilePhoto">
+            </div>
+            <div class="datos-usuario">
+                <h2 id="nombreUsuario">John Doe</h2>
+                <p id="emailUsuario">johndoe@example.com</p>
+                <p id="telefonoUsuario">+123 456 789</p>
+            </div>
+            <button class="btn btn-primary" id="editProfileBtn">Editar Perfil</button>
+        </div>
+
+        <div class="informacion-adicional mt-4">
+            <h4>Acerca de</h4>
+            <p id="descripcionUsuario">Desarrollador web con experiencia en tecnologías frontend y backend.</p>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay hidden"></div>
+
+    <!-- Formulario de edición -->
+    <div id="editForm" class="hidden">
+        <h4>Editar Perfil</h4>
+        <input type="text" id="nombreInput" class="form-control mb-2" placeholder="Nuevo nombre">
+        <input type="email" id="emailInput" class="form-control mb-2" placeholder="Nuevo email">
+        <input type="text" id="telefonoInput" class="form-control mb-2" placeholder="Nuevo teléfono">
+        <textarea id="descripcionInput" class="form-control mb-2" placeholder="Nueva descripción"></textarea>
+        
+        <!-- Botón para cambiar foto de perfil -->
+        <button class="btn btn-secondary" id="changePhotoBtn">Cambiar Foto de Perfil</button>
+        <input type="file" id="fileInput" class="hidden" accept="image/*">
+
+        <button class="btn btn-success mt-2" id="saveProfileBtn">Guardar Cambios</button>
+    </div>
+
+    <script src="assets/js/perfilCliente.js"></script>
+</body>
+</html>

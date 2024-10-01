@@ -1,0 +1,152 @@
+    /* Estilos generales */
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+            /* Ajustar el tamaño del encabezado */
+    header.encabezado {
+                height: 100px; /* Ajusta la altura según tus necesidades */
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 20px; /* Ajusta el padding según tus necesidades */
+    }
+            
+            /* Ajustar el tamaño del logo */
+            header.encabezado .logo img {
+                height: 80px; /* Ajusta la altura del logo según tus necesidades */
+                margin-left: 20px; /* Añade margen izquierdo al logo */
+
+            }
+
+            /* Ajustar el tamaño de la navegación */
+            nav ul.enlaces-nav {
+                display: flex;
+                gap: 15px; /* Espacio entre los elementos de navegación */
+            }
+
+            nav ul.enlaces-nav li a {
+                font-size: 16px; /* Ajusta el tamaño de la fuente según tus necesidades */
+            }
+
+            /* Ajustar el tamaño de los botones */
+            .contenedor-botones .btn button {
+                font-size: 14px; /* Ajusta el tamaño de la fuente de los botones según tus necesidades */
+                padding: 10px 20px; /* Ajusta el padding de los botones según tus necesidades */
+            }
+    /* Estilos del encabezado */
+    header.encabezado {
+        background-color: #2c2c2c;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    header.encabezado .logo img {
+        height: 80px; /* Ajusta la altura del logo según tus necesidades */
+        margin-left: 50px;
+    }
+
+    /* Estilos de la navegación */
+    nav ul.enlaces-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav ul.enlaces-nav li {
+        margin: 0 15px;
+    }
+
+    nav ul.enlaces-nav li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        transition: color 0.3s ease; /* Transición suave para el efecto hover */
+    }
+
+    nav ul.enlaces-nav li a:hover {
+        color: #28a745; /* Color verde para el efecto hover */
+    }
+
+    /* Estilos de los botones */
+    .contenedor-botones .btn button {
+        background-color: #28a745; /* Color verde */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        margin: 5px;
+        transition: background-color 0.3s ease; /* Transición suave para el efecto hover */
+        
+    }
+
+    .contenedor-botones .btn button:hover {
+        background-color: #218838; /* Color verde más oscuro para el hover */
+    }
+
+    /* Estilos del formulario */
+main {
+    padding: 20px;
+    background-color: #333; /* Color de fondo negro similar al encabezado */
+    max-width: 500px;
+    margin: 100px auto 0; /* Añade margen superior para evitar que el formulario se superponga con el encabezado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.form-container {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff; /* Color del texto del label */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: rgb(31, 38, 49);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #121531; /* Cambia el color de fondo al pasar el cursor */
+}
+
+
+.back-arrow:hover {
+    color: #ffbc0e; /* Cambia el color del texto al pasar el cursor */
+}
+
+.back-arrow svg {
+    margin-right: 8px; /* Añade margen derecho al icono de la flecha */
+}
+.no-account {
+    color: #ffffff; /* Cambia el color del texto a blanco */
+}

@@ -1,0 +1,143 @@
+/* Estilos generales */
+body {
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #343a40;
+    padding: 20px;
+}
+
+header .logo img {
+    width: 150px;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+header ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+header ul li a:hover {
+    color: #17a2b8;
+}
+
+/* Estilos del contenedor del perfil */
+.perfil-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* Sección de foto de perfil e información básica */
+.perfil-info {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+/* Foto de perfil redonda */
+.foto-perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    overflow: hidden;
+    position: absolute;
+    top: -75px;
+    left: 30px;
+}
+
+.foto-perfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Información del usuario */
+.datos-usuario {
+    margin-left: 200px;
+}
+
+.datos-usuario h2 {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.datos-usuario p {
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.btn {
+    display: block;
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+/* Estilo de la sección de información adicional */
+.informacion-adicional {
+    padding: 20px;
+}
+
+.informacion-adicional h4 {
+    font-size: 1.5em;
+    color: #343a40;
+    margin-bottom: 10px;
+}
+
+/* Ocultar el formulario por defecto */
+.hidden {
+    display: none;
+}
+
+/* Capa borrosa */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo negro con transparencia */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque */
+    z-index: 500; /* Asegurarse de que la capa borrosa esté por encima del contenido */
+}
+
+/* Estilo del formulario de edición */
+#editForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
+    background-color: white; /* Fondo blanco para el formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el formulario */
+    z-index: 1000; /* Asegura que la tarjeta esté por encima */
+}
