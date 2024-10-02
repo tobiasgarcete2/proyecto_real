@@ -5,20 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobHunter</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="shortcut icon" href="./assets/img/logos.png">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Estilo para el icono de la foto de perfil */
-        .profile-icon {
-            width: 40px; /* Ajusta el tamaño según sea necesario */
-            height: 40px;
-            border-radius: 50%; /* Hace la imagen redonda */
-            margin-left: 15px; /* Espacio entre el ícono y los botones */
-            object-fit: cover; /* Asegura que la imagen mantenga su proporción */
-        }
-    </style>
 </head>
 <body>
     <header class="encabezado">
@@ -27,19 +17,17 @@
         </div>
         <nav>
             <ul class="enlaces-nav">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="eventos.html">Destacados</a></li>
+                <li><a href="eventos.html">publicaciones</a></li>
+                <!-- Mover la palabra "Perfil" al final -->
             </ul>
         </nav>
-        <div class="contenedor-botones" id="navv">
-            <a id="botonIniciarSesion" class="btn" href="iniciarSesion.html"><button>Iniciar Sesión</button></a>
-            <a id="botonRegistrarse" class="btn" href="registrarse.html"><button>Registrarse</button></a>
-            <a id="botonCerrarSesion" class="btn" style="display: none;" href="#"><button>Cerrar Sesión</button></a>
-            <span id="nombreUsuario" style="display: none;"></span>
-            <img id="profilePhoto" src="assets/img/default-user.png" alt="Foto de perfil" class="profile-icon" style="display: none;"> <!-- Icono de foto de perfil -->
+        <div class="contenedor-botones" id="navv"> <!-- Icono de foto de perfil -->
+            <li class="perfil">
+                <a href="perfilcliente.html">Perfil</a>
+            </li>
+            <a id="botonCerrarSesion" class="btn" style="display: none;" href="inicio.html"><button>Cerrar Sesión</button></a>
         </div>
     </header>
-
     <!-- Carrusel de imágenes -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">

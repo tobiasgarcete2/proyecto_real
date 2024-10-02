@@ -1,32 +1,34 @@
 const jwt = require('jsonwebtoken');
-const { connectDB } = require('../db/db');
+const { newConex } = require('../db/db');
 
-const validarJWT = async (token) => {
+const validarJWT = async (req, res, next) => {
+    const token = req.cookies.token
 
-    try {
-        // Usamos el metodo verify para verificar el token.
-        // El primer parametro es el token que recibimos por el header, y el segun el secret con el que firmamos el token.
-        const { id } = jwt.verify(token, 'mysecret');
-
-        const connection = await connectDB();
-
-        // Buscamos el usuario por id.
-        const [usuario] = await connection.query('SELECT * FROM USUARIOS WHERE id=? LIMIT 1', id);
-
-        // En caso de que no exista retornamos false.
-        if(!usuario){
-            return false;
-        } else {
-            //Caso contrario retornamos el usuario.
-            return usuario[0];
-        }
-        
-    } catch (error) {
-        // Si ocurre un error lo mostramos por consola y retornamos false.
-        console.log(error);
-        return false;
+    if (!token) {
+        return res.status(401).json({ msg: 'No hay token en la petición' });
     }
 
-}
+    try {
+        // Verificamos si el token es válido
+        const { id } = jwt.verify(token, 'mysecret');
+
+        const connection = await newConex();
+
+        // Buscar el usuario en la base de datos
+        const [usuario] = await connection.query('SELECT * FROM users WHERE id_user = ? LIMIT 1', [id]);
+
+        if (!usuario || usuario.length === 0) {
+            return res.status(401).json({ msg: 'Token no válido - usuario no existe en la BD' });
+        }
+
+        // Agregamos el usuario a la request
+        req.user = usuario[0];
+        next(); // Pasar al siguiente middleware o controlador
+
+    } catch (error) {
+        console.log(error);
+        return res.status(401).json({ msg: 'Token no válido' });
+    }
+};
 
 module.exports = validarJWT;

@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
+                credentials: "include",
+                mode:"cors"
             });
 
             const data = await response.json();
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('username', data.username);
                 alert("Se inició sesión correctamente");
                 // Redirigir al usuario a la página principal después de iniciar sesión exitosamente
-                window.location.href = '/index.html'; // Reemplazar con la ruta correcta
+                window.location.href = 'http://127.0.0.1:5501/Client/index.html'; // Reemplazar con la ruta correcta
             } else {
                 alert(data.message); // Mostrar alert con el mensaje de error
             }

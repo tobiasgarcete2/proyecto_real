@@ -10,6 +10,7 @@ document.getElementById('signup-form').addEventListener('submit', async (event) 
     let username;
     if (role === 'empresa') {
         username = document.getElementById('nombre_empresa').value;
+        console.log(role)
     } else {
         username = document.getElementById('nombre_desempleado').value;
     }
@@ -22,6 +23,7 @@ document.getElementById('signup-form').addEventListener('submit', async (event) 
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ username, email, password, role }),
+            credentials: "include"
         });
 
         if (!registerResponse.ok) {
@@ -32,9 +34,9 @@ document.getElementById('signup-form').addEventListener('submit', async (event) 
         alert("Se registro correctamente")
         
         // Redirigir al usuario a la página de inicio de sesión o al dashboard
-        window.location.href = '/iniciarSesion.html';
+        window.location.href = 'http://127.0.0.1:5501/Client/iniciarSesion.html';
     } catch (error) {
-        console.error('Error:', error);
+        console.log('Error:', error);
         alert('Hubo un error en el registro. Por favor, intente nuevamente.');
     }
 });

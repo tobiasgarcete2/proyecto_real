@@ -1,6 +1,6 @@
 const { newConex } = require("../db/db.js");
 const generarJWT = require("../helpers/generarJWT.js");
-const bcrypt = require ("bcrypt");
+const bcrypt = require("bcrypt");
 
 const registerUser = async (req, res) => {
     const { username, email, password, role } = req.body;
@@ -15,10 +15,7 @@ const registerUser = async (req, res) => {
         const conex = await newConex();
 
         // Verificar si el email ya existe
-        const [existingUsers] = await conex.query(
-            "SELECT * FROM users WHERE email = ?",
-            [email]
-        );
+        const [existingUsers] = await conex.query("SELECT * FROM users WHERE email = ?", [email]);
 
         if (existingUsers.length > 0) {
             await conex.end();
@@ -31,23 +28,17 @@ const registerUser = async (req, res) => {
 
         // Insertar los datos en la tabla 'users'
         const [userResult] = await conex.query(
-            "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)", 
-            [username, email, password_hash]
+            "INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)",
+            [username, email, password_hash, role]
         );
 
         const userId = userResult.insertId; // Obtener el ID del usuario recién insertado
 
         // Insertar en la tabla auxiliar correspondiente según el rol
         if (role === 'empresa') {
-            await conex.query(
-                "INSERT INTO user_company (id_user) VALUES (?)", 
-                [userId]
-            );
+            await conex.query("INSERT INTO user_company (id_user) VALUES (?)", [userId]);
         } else if (role === 'desempleado') {
-            await conex.query(
-                "INSERT INTO user_peoples (id_user) VALUES (?)", 
-                [userId]
-            );
+            await conex.query("INSERT INTO user_peoples (id_user) VALUES (?)", [userId]);
         } else {
             await conex.end();
             return res.status(400).send("El rol especificado no es válido");
@@ -57,12 +48,18 @@ const registerUser = async (req, res) => {
         await conex.end();
 
         // Generar el token JWT
-        const token = await generarJWT({ email });
+        const token = await generarJWT();
 
-        // Enviar el token como respuesta
-        res.json({ message: "Usuario registrado correctamente", token });
+        // Configurar la cookie con el token JWT
+        res.cookie("token", token, {
+            httpOnly: true, // Solo accesible desde el servidor
+            secure: process.env.NODE_ENV === "production", // Solo usar en HTTPS en producción
+            maxAge: 3600000 // 1 hora de duración
+        });
+
+        // Enviar una respuesta indicando que el usuario fue registrado
+        res.json({ message: "Usuario registrado correctamente" });
     } catch (error) {
-        // Manejar errores
         console.error("Error al registrar usuario:", error);
         res.status(500).send("Error interno del servidor");
     }
@@ -81,7 +78,10 @@ const login = async (req, res) => {
         const conex = await newConex();
 
         // Consulta para verificar las credenciales del usuario
-        const [result] = await conex.query("SELECT id_user, username, email, password_hash FROM users WHERE email = ?", [email]);
+        const [result] = await conex.query(
+            "SELECT id_user, username, email, password_hash FROM users WHERE email = ?", 
+            [email]
+        );
 
         // Si no se encuentra el usuario, devolver un mensaje indicando que debe registrarse
         if (result.length === 0) {
@@ -104,14 +104,20 @@ const login = async (req, res) => {
         // Cerrar la conexión a la base de datos
         await conex.end();
 
-        // Retornar el token con un mensaje al cliente.
+        // Configurar la cookie con el token JWT
+        res.cookie("token", token, {
+            httpOnly: true, // Solo accesible desde el servidor
+            secure: process.env.NODE_ENV === "production", // Solo usar en HTTPS en producción
+            maxAge: 3600000 // 1 hora de duración
+        });
+
+        // Retornar un mensaje de éxito
         res.json({
             message: 'Inicio de sesión exitoso',
-            token,
-            username: usuario.username
+            username: usuario.username,
+            token: token
         });
     } catch (error) {
-        // Manejar errores
         console.error("Error al iniciar sesión:", error);
         res.status(500).json({ message: "Error interno del servidor" });
     }
