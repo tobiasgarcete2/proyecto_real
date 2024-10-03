@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Almacenar el token en el almacenamiento local
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('username', data.username);
                 alert("Se inició sesión correctamente");
                 // Redirigir al usuario a la página principal después de iniciar sesión exitosamente
                 window.location.href = 'http://127.0.0.1:5501/Client/index.html'; // Reemplazar con la ruta correcta

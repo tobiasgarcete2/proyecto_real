@@ -8,13 +8,9 @@ body {
 
 header {
     background-color: #343a40;
-    padding: 20px; /* Ajusta este valor según sea necesario */
-    background: linear-gradient(135deg, #939496, #343a40); /* Fondo en degradado */
-    display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    position: relative;
+    padding: 20px;
 }
+
 header .logo img {
     width: 150px;
 }
@@ -26,15 +22,13 @@ header nav {
 
 header ul {
     list-style-type: none;
-    margin: 0; /* Mantener en 0 para eliminar margen del ul */
+    margin: 0;
     padding: 0;
-    margin-left: 20px; /* Añadir margen izquierdo para separar del borde */
-    padding-left: 0; /* Opcional, si no quieres padding por defecto */
 }
 
 header ul li {
     display: inline-block;
-    margin-left: 30px; /* Aumentar margen izquierdo para separación entre items */
+    margin-left: 20px;
 }
 
 header ul li a {
@@ -45,7 +39,7 @@ header ul li a {
 }
 
 header ul li a:hover {
-    color: #f51717;
+    color: #17a2b8;
 }
 
 /* Estilos del contenedor del perfil */
@@ -101,10 +95,31 @@ header ul li a:hover {
     margin-bottom: 5px;
 }
 
-.btn {
-    display: block;
-    margin-left: auto;
-    margin-top: 10px;
+/* Estilo para el botón "Subir CV" */
+.btn-info {
+    background-color: #17a2b8; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
+
+.btn-info:hover {
+    background-color: #138496; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo para el botón "Editar Perfil" */
+.btn-primary {
+    margin-top: 10px; /* Espacio entre los botones */
+}
+
+/* Contenedor para los botones alineados a la derecha */
+.btn-group {
+    display: flex;
+    flex-direction: column; /* Alinear los botones verticalmente */
+    margin-left: auto; /* Alinear a la derecha */
 }
 
 /* Estilo de la sección de información adicional */
@@ -146,17 +161,4 @@ header ul li a:hover {
     padding: 20px; /* Espaciado interno */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el formulario */
     z-index: 1000; /* Asegura que la tarjeta esté por encima */
-}
-
-
-
-/* Centrar logo */
-header .logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-header .logo img {
-    width: 200px; /* Ajusta el tamaño del logo según sea necesario */
 }

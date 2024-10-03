@@ -5,7 +5,7 @@ const { registerUser, login } = require("../controllers/auth.controller.js");
 const router = express.Router();
 
 router.get("/register", (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../Client/register.html'));
+    res.sendFile(path.join(__dirname, '../../../Client/registrarse.html'));
 });
 
 router.post("/register", registerUser);  // Asegúrate de que la función registerUser esté correctamente importada

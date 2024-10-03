@@ -26,6 +26,8 @@ const registerUser = async (req, res) => {
         const saltRounds = 10;
         const password_hash = await bcrypt.hash(password, saltRounds);
 
+
+
         // Insertar los datos en la tabla 'users'
         const [userResult] = await conex.query(
             "INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)",
@@ -79,7 +81,7 @@ const login = async (req, res) => {
 
         // Consulta para verificar las credenciales del usuario
         const [result] = await conex.query(
-            "SELECT id_user, username, email, password_hash FROM users WHERE email = ?", 
+            "SELECT email, password_hash FROM users WHERE email = ?", 
             [email]
         );
 
@@ -98,7 +100,7 @@ const login = async (req, res) => {
             return res.status(401).json({ message: "El correo electrónico o la contraseña no coinciden" });
         }
 
-        // Generar el token JWT con el ID del usuario
+        // Generar el token JWT con el ID y email del usuario
         const token = await generarJWT({ id: usuario.id, email: usuario.email });
 
         // Cerrar la conexión a la base de datos

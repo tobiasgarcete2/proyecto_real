@@ -9,7 +9,7 @@
     <script src="./assets/js/crearCurriculum.js" defer></script> <!-- Enlace al archivo JavaScript -->
 </head>
 <body>
-    
+
     <div class="login-container">
         <h2>Crear CV</h2>
         <div class="form-group">
@@ -26,10 +26,15 @@
         </div>
         <div class="form-group">
             <label for="foto">Foto</label>
-            <input type="file" id="foto" name="foto" accept="image/*" required>
+            <input type="file" id="foto" name="foto" accept="image/" required>
+        </div>
+        <div class="form-group">
+            <label for="video">Video de presentación</label>
+            <input type="file" id="video" name="video" accept="video/" required>
+            <video id="videoPreview" controls style="display: none; width: 100%; margin-top: 10px;"></video>
         </div>
         <button type="button" id="crearCVButton">Crear CV</button>
-        <p>¿No tienes una cuenta? <a href="../pages/registro.html">Regístrate aquí</a></p>
+         <a href="../Client/perfilcliente.html">Mi Perfil</a></p>
     </div>
 </body>
 </html>

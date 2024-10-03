@@ -16,9 +16,8 @@ app.use(cookieParser());
 
 // Middlewares
 app.use(cors({
-    origin: 'http://localhost:5501',
-    credentials: true,
-     // Necesario para que las cookies sean transmitidas en las peticiones
+    origin: ['http://localhost:5501', 'http://127.0.0.1:5501'], // Especificar ambos orígenes
+    credentials: true // Si necesitas enviar cookies u otras credenciales
 }));
 app.use(morgan('dev'));
 app.use(express.json());
@@ -34,7 +33,8 @@ app.use('/post', publiRoutes);
 
 // Ruta para manejar todas las demás solicitudes y servir el archivo HTML principal
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Client/inicio.html'));
+    res.sendFile(path.join(__dirname, '../client/inicio.html'
+    ));
 });
 
 // Iniciar el servidor
