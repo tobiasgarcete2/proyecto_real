@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const generarJWT = (id) => {
+ export const generarJWT = (id) => {
 
     return new Promise((resolve, reject) => {
         // Asegurarse de que el id se pasa dentro de un objeto como payload
@@ -19,4 +19,4 @@ const generarJWT = (id) => {
     });
 }
 
-module.exports = generarJWT;
+

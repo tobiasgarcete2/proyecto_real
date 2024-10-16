@@ -1,6 +1,6 @@
-const { newConex } = require("../db/db.js");
-const generarJWT = require("../helpers/generarJWT.js");
-const bcrypt = require("bcrypt");
+import { newConex } from "../db/db.js";
+import generarJWT from "../helpers/generarJWT.js";
+import bcrypt from "bcrypt";
 
 const registerUser = async (req, res) => {
     const { username, email, password, role } = req.body;
@@ -125,4 +125,4 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, login };
+export { registerUser, login };

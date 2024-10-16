@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const { newConex } = require('../db/db');
+import jwt from 'jsonwebtoken';
+import { newConex } from '../db/db';
 
-const validarJWT = async (req, res, next) => {
+export const validarJWT = async (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
@@ -34,5 +34,3 @@ const validarJWT = async (req, res, next) => {
         return res.status(401).json({ msg: 'Token no válido' });
     }
 };
-
-module.exports = validarJWT;

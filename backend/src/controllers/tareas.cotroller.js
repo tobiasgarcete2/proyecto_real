@@ -1,7 +1,6 @@
-const { newConex } = require("../db/db");
-const validarJWT = require("../helpers/validarJWT");
+import { newConex } from "../db/db";
 
-const ctrl = {};
+export const ctrl = {};
 
 ctrl.obtenerTareas = async (req, res) => {
     try {
@@ -13,6 +12,3 @@ ctrl.obtenerTareas = async (req, res) => {
         return res.status(500).send('Error al obtener datos de la base de datos');
     }
 };
-
-
-module.exports = ctrl;

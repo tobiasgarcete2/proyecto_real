@@ -1,14 +1,14 @@
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const path = require('path');
-const authRoutes = require('./src/routes/auth.routes.js');
-const tareasRoutes = require('./src/routes/tareas.routes.js');
-const publiRoutes = require('./src/routes/publicaciones.routes.js');
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import path from 'path';
+import authRoutes from './src/routes/auth.routes.js';
+import tareasRoutes from './src/routes/tareas.routes.js';
+import publiRoutes from './src/routes/publicaciones.routes.js';
 const PORT = process.env.PORT || 4000;
-const cookieParser = require('cookie-parser');
+import cookieParser from 'cookie-parser';
 
-const app = express();
+export const app = express();
 
 // Middleware para manejar cookies
 app.use(cookieParser());

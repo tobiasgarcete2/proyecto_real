@@ -1,4 +1,4 @@
-const { newConex } = require('../db/db.js')
+import { newConex } from '../db/db.js'
 
 const subirPublicacion = async (req, res) => {
     const { title, description, id_user } = req.body;
@@ -8,4 +8,4 @@ const subirPublicacion = async (req, res) => {
     res.status(200).json(result);
 };
 
-module.exports = { subirPublicacion };
+export  { subirPublicacion };
