@@ -1,5 +1,5 @@
 import { newConex } from "../db/db.js";
-import generarJWT from "../helpers/generarJWT.js";
+import {generarJWT} from "../helpers/generarJWT.js";
 import bcrypt from "bcrypt";
 
 const registerUser = async (req, res) => {

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { newConex } from '../db/db';
+import { newConex } from '../db/db.js';
 
 export const validarJWT = async (req, res, next) => {
     const token = req.cookies.token;
@@ -21,7 +21,7 @@ export const validarJWT = async (req, res, next) => {
             await connection.end(); // Cerrar la conexión si no existe el usuario
             return res.status(401).json({ msg: 'Token no válido - usuario no existe en la BD' });
         }
-
+        
         // Agregamos el usuario a la request
         req.user = usuario[0];
 
@@ -33,4 +33,4 @@ export const validarJWT = async (req, res, next) => {
         console.log(error);
         return res.status(401).json({ msg: 'Token no válido' });
     }
-};
+}

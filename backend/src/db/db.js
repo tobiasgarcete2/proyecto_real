@@ -1,8 +1,8 @@
 // db.js
 
-const mysql = require("mysql2/promise");
+import  mysql from "mysql2/promise";
 
-const newConex = async () => {
+export const newConex = async () => {
     try {
         const conex = await mysql.createConnection({
             host: "localhost",
@@ -14,8 +14,4 @@ const newConex = async () => {
     } catch (error) {
         throw error;
     }
-};
-
-module.exports = {
-    newConex
 };

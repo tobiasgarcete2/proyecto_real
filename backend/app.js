@@ -1,14 +1,22 @@
 import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
-import authRoutes from './src/routes/auth.routes.js';
-import tareasRoutes from './src/routes/tareas.routes.js';
-import publiRoutes from './src/routes/publicaciones.routes.js';
+import {authRoutes} from './src/routes/auth.routes.js';
+import { router } from './src/routes/publicaciones.routes.js';
 const PORT = process.env.PORT || 4000;
 import cookieParser from 'cookie-parser';
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 export const app = express();
+
+// Usar __dirname para definir la ruta estática
+app.use(express.static(path.join(__dirname, '../Client')));
+
+// Resto de tu configuración de Express
+
 
 // Middleware para manejar cookies
 app.use(cookieParser());
@@ -28,8 +36,7 @@ app.use(express.static(path.join(__dirname, '../Client')));
 
 // Rutas
 app.use('/auth', authRoutes);
-app.use('/publicacion', tareasRoutes);
-app.use('/post', publiRoutes);
+app.use('/post', router);
 
 // Ruta para manejar todas las demás solicitudes y servir el archivo HTML principal
 app.get('*', (req, res) => {

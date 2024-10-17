@@ -17,7 +17,7 @@
     />
     <!-- <link rel="stylesheet" href="/frontend/css/home.css" /> -->
     <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/frontend//css/post.css">
+    <link rel="stylesheet" href="./assets/css/subipubli.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
@@ -28,93 +28,21 @@
   </head>
 
   <body>
-    <!-- <header class="navbar navbar-expand-lg p-3 fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">SOSMissions</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-4 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/frontend/home.html">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/frontend/aboutus.html"
-                >Sobre Nosotros</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/frontend/contact.html"
-                >Contactos</a
-              >
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Categorías
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="seccion2.html"
-                    >Maniobras de RCP</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="seccion3.html"
-                    >Maniobra de Heimlich</a
-                  >
-                </li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="seccion1.html"> Primeros auxilios </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input id="search" class="form-control me-2" type="search" aria-label="Search">
-            <button class="btn btn-outline" type="submit">Buscar</button>
-          </form>
-          <div class="btn-login" id="btn-lr">
-            <button class="btn" id="loginBtn"> <a href="/frontend/sesion.html">Iniciar Sesión</a></button>
-            <button class="btn" id="registerBtn"><a href="/frontend/registro.html">Registrarse</a></button>
-          </div>
-        </div>
-      </div>
-  </header> -->
-    
-    <main>
       <main>
         <div class="contenedor">
-            <form action="http://localhost:3000/post" id="nueva-publicacion-form" method="POST">
+            <form action="http://localhost:4000/post" id="nueva-publicacion-form" method="POST">
                 <div class="form-group">
                     <label for="titulo" class="form-label">Título de la Publicación</label>
                     <input type="text" class="form-control" id="titulo" placeholder="Título" name="title" required>
                 </div>
                 <div class="form-group">
-                    <label for="descripcion" class="form-label">Descripción</label>
+                    <label for="description" class="form-label">Descripción</label>
                     <div id="editor-container"></div>
-                    <input type="hidden" id="descripcion" name="description">
+                    <input type="hidden" id="description" name="description" required>
                 </div>
                 <button type="submit" class="btn-submit">Publicar</button>
             </form>
         </div>
-    </main>
-    
     </main>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -127,6 +55,6 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-    <script src="/frontend/js/editor.js"></script>
+    <script src="./assets/js/editor.js"></script>
   </body>
 </html>

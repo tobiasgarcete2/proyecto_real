@@ -1,10 +1,7 @@
-const express = require("express");
-const validarJWT = require('../helpers/validarJWT');
-const { subirPublicacion } = require('../controllers/subir_publi.controller');
-
-const router = express.Router();
+import { Router } from "express";
+import { subirPublicacion, obtenerPublicaciones } from "../controllers/subir_publi.controller.js";
+export const router = Router()
 
 // Ruta protegida que requiere validación de JWT
-router.post('/', validarJWT, subirPublicacion);
-
-module.exports = router;
+router.post('/',subirPublicacion);
+router.get('/',obtenerPublicaciones);

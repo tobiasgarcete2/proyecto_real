@@ -1,14 +1,14 @@
-const express = require("express");
-const path = require("path");
-const { registerUser, login } = require("../controllers/auth.controller.js");
+import Router from "express";
+import path from "path";
+import { registerUser, login } from "../controllers/auth.controller.js";
 
-const router = express.Router();
+export const authRoutes = Router();
 
-router.get("/register", (req, res) => {
+authRoutes.get("/register", (req, res) => {
     res.sendFile(path.join(__dirname, '../../../Client/registrarse.html'));
 });
 
-router.post("/register", registerUser);  // Asegúrate de que la función registerUser esté correctamente importada
-router.post("/login", login);            // Asegúrate de que la función login esté correctamente importada
+authRoutes.post("/register", registerUser);  // Asegúrate de que la función registerUser esté correctamente importada
+authRoutes.post("/login", login);            // Asegúrate de que la función login esté correctamente importada
 
-module.exports = router;
+
