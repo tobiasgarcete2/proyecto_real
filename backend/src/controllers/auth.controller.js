@@ -108,9 +108,10 @@ const login = async (req, res) => {
 
         // Configurar la cookie con el token JWT
         res.cookie("token", token, {
-            httpOnly: true, // Solo accesible desde el servidor
+            httpOnly: false, // Solo accesible desde el servidor
             secure: process.env.NODE_ENV === "production", // Solo usar en HTTPS en producción
-            maxAge: 3600000 // 1 hora de duración
+            maxAge: 3600000, // 1 hora de duración
+            sameSite: 'Lax'
         });
 
         // Retornar un mensaje de éxito
@@ -119,10 +120,18 @@ const login = async (req, res) => {
             username: usuario.username,
             token: token
         });
-    } catch (error) {
+        } catch (error) {
         console.error("Error al iniciar sesión:", error);
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
 
-export { registerUser, login };
+const session = async(req,res) =>{
+    console.log("hola",req.user)
+    if(!req.user){
+        res.json({message:"No se encontró nada"}).status(400)
+    }else{
+        res.json({message: "Sesión iniciada correctamente", user: req.user})
+    }
+}
+export { registerUser, login,session };
