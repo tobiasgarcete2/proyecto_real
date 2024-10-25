@@ -1,32 +1,32 @@
 import { newConex } from "../db/db.js";
-import {generarJWT} from "../helpers/generarJWT.js";
+import { generarJWT } from "../helpers/generarJWT.js";
 import bcrypt from "bcrypt";
 
 const registerUser = async (req, res) => {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, docPers } = req.body;
 
     // Verificar si los campos requeridos están presentes
-    if (!username || !email || !password || !role) {
+    if (!username || !email || !password || !role || !docPers) {
         return res.status(400).send("Por favor, complete todos los campos del formulario");
     }
 
+    const conex = await newConex(); // Crear la conexión
+
     try {
-        // Crear una nueva conexión a la base de datos
-        const conex = await newConex();
+        // Iniciar la transacción
+        await conex.beginTransaction();
 
         // Verificar si el email ya existe
         const [existingUsers] = await conex.query("SELECT * FROM users WHERE email = ?", [email]);
 
         if (existingUsers.length > 0) {
-            await conex.end();
+            await conex.rollback();
             return res.status(400).send("El email ya está registrado");
         }
 
         // Hashear la contraseña
         const saltRounds = 10;
         const password_hash = await bcrypt.hash(password, saltRounds);
-
-
 
         // Insertar los datos en la tabla 'users'
         const [userResult] = await conex.query(
@@ -38,54 +38,40 @@ const registerUser = async (req, res) => {
 
         // Insertar en la tabla auxiliar correspondiente según el rol
         if (role === 'empresa') {
-            await conex.query("INSERT INTO user_company (id_user) VALUES (?)", [userId]);
+            await conex.query("INSERT INTO user_company (id_user, cuit) VALUES (?, ?)", [userId, docPers]);
         } else if (role === 'desempleado') {
-            await conex.query("INSERT INTO user_peoples (id_user) VALUES (?)", [userId]);
+            await conex.query("INSERT INTO user_peoples (id_user, cuil) VALUES (?, ?)", [userId, docPers]);
         } else {
-            await conex.end();
+            await conex.rollback();
             return res.status(400).send("El rol especificado no es válido");
         }
 
-        // Cerrar la conexión a la base de datos
-        await conex.end();
-
-        // Generar el token JWT
-        const token = await generarJWT();
-
-        // Configurar la cookie con el token JWT
-        res.cookie("token", token, {
-            httpOnly: true, // Solo accesible desde el servidor
-            secure: process.env.NODE_ENV === "production", // Solo usar en HTTPS en producción
-            maxAge: 3600000 // 1 hora de duración
-        });
+        // Confirmar la transacción
+        await conex.commit();
 
         // Enviar una respuesta indicando que el usuario fue registrado
         res.json({ message: "Usuario registrado correctamente" });
     } catch (error) {
+        await conex.rollback(); // Revertir los cambios en caso de error
         console.error("Error al registrar usuario:", error);
         res.status(500).send("Error interno del servidor");
+    } finally {
+        await conex.end(); // Cerrar la conexión
     }
 };
 
 const login = async (req, res) => {
     const { email, password } = req.body;
 
-    // Verificar si los campos requeridos están presentes
     if (!email || !password) {
         return res.status(400).json({ message: "Por favor, complete todos los campos del formulario" });
     }
 
+    const conex = await newConex();
+
     try {
-        // Crear una nueva conexión a la base de datos
-        const conex = await newConex();
+        const [result] = await conex.query("SELECT id_user, username, email, password_hash, role FROM users WHERE email = ?", [email]);
 
-        // Consulta para verificar las credenciales del usuario
-        const [result] = await conex.query(
-            "SELECT email, password_hash FROM users WHERE email = ?", 
-            [email]
-        );
-
-        // Si no se encuentra el usuario, devolver un mensaje indicando que debe registrarse
         if (result.length === 0) {
             await conex.end();
             return res.status(401).json({ message: "Usuario no registrado. Por favor, regístrese." });
@@ -93,45 +79,44 @@ const login = async (req, res) => {
 
         const usuario = result[0];
 
-        // Verificar la contraseña
         const passwordMatch = await bcrypt.compare(password, usuario.password_hash);
         if (!passwordMatch) {
             await conex.end();
             return res.status(401).json({ message: "El correo electrónico o la contraseña no coinciden" });
         }
 
-        // Generar el token JWT con el ID y email del usuario
-        const token = await generarJWT({ id: usuario.id, email: usuario.email });
+        const token = await generarJWT(usuario.id_user, usuario.email, usuario.username, usuario.role);
 
-        // Cerrar la conexión a la base de datos
         await conex.end();
 
-        // Configurar la cookie con el token JWT
         res.cookie("token", token, {
-            httpOnly: false, // Solo accesible desde el servidor
-            secure: process.env.NODE_ENV === "production", // Solo usar en HTTPS en producción
-            maxAge: 3600000, // 1 hora de duración
+            httpOnly: false,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 3600000,
             sameSite: 'Lax'
         });
 
-        // Retornar un mensaje de éxito
+        // Incluir el rol en la respuesta
         res.json({
             message: 'Inicio de sesión exitoso',
             username: usuario.username,
+            role: usuario.role, // Aquí se incluye el rol
             token: token
         });
-        } catch (error) {
+    } catch (error) {
         console.error("Error al iniciar sesión:", error);
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
 
-const session = async(req,res) =>{
-    console.log("hola",req.user)
-    if(!req.user){
-        res.json({message:"No se encontró nada"}).status(400)
-    }else{
-        res.json({message: "Sesión iniciada correctamente", user: req.user})
+
+
+const session = async (req, res) => {
+    if (!req.user) {
+        return res.status(400).json({ message: "No se encontró nada" });
+    } else {
+        res.json({ message: "Sesión iniciada correctamente", user: req.user });
     }
-}
-export { registerUser, login,session };
+};
+
+export { registerUser, login, session };

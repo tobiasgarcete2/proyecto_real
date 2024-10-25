@@ -1,22 +1,19 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'; // Asegúrate de que esta línea esté al inicio del archivo
 
- export const generarJWT = (id) => {
-
+export const generarJWT = (id, email, username, role) => {
     return new Promise((resolve, reject) => {
-        // Asegurarse de que el id se pasa dentro de un objeto como payload
-        const payload = { id };
+        const payload = { id, email, username, role }; // Incluyendo username y role
 
-        // Fimar el token con el payload
-        jwt.sign(payload, 'mysecret', {
-            expiresIn: 60 * 60 // Expiración en 1 hora
+        const secretKey = process.env.JWT_SECRET || 'mydefaultsecret'; // Usar clave segura
+
+        jwt.sign(payload, secretKey, {
+            expiresIn: '1h', // Expiración en 1 hora
+            algorithm: 'HS256' // Especificar el algoritmo
         }, (err, token) => {
             if (err) {
-                reject(err); // Si hay error, rechazar la promesa
-            } else {
-                resolve(token); // Si no hay error, resolver con el token
+                return reject(new Error("Error al generar el token: " + err.message)); // Manejo de errores
             }
+            resolve(token); // Resolver con el token generado
         });
     });
 }
-
-
