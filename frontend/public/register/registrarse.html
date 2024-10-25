@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="../src/styles/registrarse.css">
+    <link rel="shortcut icon" href="../src/img/logos.png">
+
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="inicio.html"><img src="../src/img/logos.png" alt="Logo de la marca"></a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="back-arrow-container">
+            <a onclick="history.go(-1)" class="back-arrow">
+                <img src="https://st4.depositphotos.com/1000507/23538/v/450/depositphotos_235388564-stock-illustration-back-clockwise-arrow-icon-simple.jpg" alt="Flecha hacia atrás" height="40px" width="50px" fill="#000000">
+            </a>
+            <h2 style="margin: 0 0 0 10px; padding-left: 13%;">Formulario de Registro</h2>
+        </div>
+        <div class="signup-container">
+            <form id="signup-form">
+                <h2>Crear Cuenta</h2>
+                
+                <div class="form-group">
+                    <label for="role">Registrarse como:</label>
+                    <select id="role" name="role" required>
+                        <option value="empresa">Empresa</option>
+                        <option value="desempleado">Usuario</option>
+                    </select>
+                </div>
+            
+                <div class="form-group" id="nombreEmpresaGroup">
+                    <label for="nombre_empresa">Nombre de la empresa:</label>
+                    <input type="text" id="nombre_empresa" name="nombre_empresa" required>
+                </div>
+                
+                <div class="form-group" id="cuitGroup">
+                    <label for="cuit">CUIT:</label>
+                    <input type="text" id="cuit" name="cuit" required>
+                </div>
+
+                <div class="form-group" id="correoGroup">
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" id="correo" name="correo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group" id="nombreUsuarioGroup">
+                    <label for="nombre_desempleado">Nombre del usuario:</label>
+                    <input type="text" id="nombre_desempleado" name="nombre_desempleado" required>
+                </div>
+                
+                <div class="form-group" id="cuilGroup">
+                    <label for="cuil">CUIL:</label>
+                    <input type="text" id="cuil" name="cuil" required>
+                </div>
+
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/src/js/register.js"></script>
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+            const role = this.value;
+            const nombreEmpresaGroup = document.getElementById('nombreEmpresaGroup');
+            const cuitGroup = document.getElementById('cuitGroup');
+            const nombreUsuarioGroup = document.getElementById('nombreUsuarioGroup');
+            const cuilGroup = document.getElementById('cuilGroup');
+
+            if (role === 'desempleado') {
+                nombreUsuarioGroup.style.display = 'block';
+                document.getElementById('nombre_desempleado').setAttribute('required', 'required');
+
+                nombreEmpresaGroup.style.display = 'none';
+                cuitGroup.style.display = 'none';
+                document.getElementById('nombre_empresa').removeAttribute('required');
+                document.getElementById('cuit').removeAttribute('required');
+
+                cuilGroup.style.display = 'block';
+                document.getElementById('cuil').setAttribute('required', 'required');
+            } else {
+                nombreUsuarioGroup.style.display = 'none';
+                document.getElementById('nombre_desempleado').removeAttribute('required');
+
+                nombreEmpresaGroup.style.display = 'block';
+                cuitGroup.style.display = 'block';
+                document.getElementById('nombre_empresa').setAttribute('required', 'required');
+                document.getElementById('cuit').setAttribute('required', 'required');
+
+                cuilGroup.style.display = 'none';
+                document.getElementById('cuil').removeAttribute('required');
+            }
+        });
+
+        // Inicializa la visibilidad de los campos al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('role').dispatchEvent(new Event('change'));
+        });
+    </script>
+</body>
+
+</html>

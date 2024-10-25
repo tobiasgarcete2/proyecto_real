@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - JobHunter</title>
+    <link rel="stylesheet" href="../src/styles/iniciarsession.css">
+    <link rel="shortcut icon" href="../src/img/logos.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo">
+            <img src="../src/img/logos.png" alt="Logo de la marca">
+        </div>
+        <nav>
+            <ul class="enlaces-nav">
+                <li><a href="inicio.html">Inicio</a></li>
+            </ul>
+        </nav>
+        <div class="contenedor-botones" id="navv">
+            <a id="botonRegistrarse" class="btn" onclick="history.go(-1)"><button>Volver</button></a>
+            <span id="nombreUsuario" style="display: none;"></span>
+            <button id="loginBtn" style="display: none;">Iniciar Sesión</button>
+            <button id="logoutBtn" style="display: none;">Cerrar Sesión</button>
+        </div>
+
+    </header>
+    <main>
+        <div class="form-container">
+            <form id="loginForm" action="login" method="post">
+                <div class="form-group">
+                    <label for="username">Correo Electrónico</label>
+                    <input type="text" id="email" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" id="signup-form">Ingresar</button>
+                <p class="no-account">¿No tienes una cuenta? <a href="../register/registrarse.html">Regístrate aquí</a></p>
+            </form>
+        </div>
+    </main>
+
+    <script src="../src/js/login.js"></script>
+</body>
+</html>
