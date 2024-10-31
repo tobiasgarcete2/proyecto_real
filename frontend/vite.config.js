@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: './src',  // Carpeta raíz del frontend
+  root: '.',  // Carpeta raíz del frontend
   publicDir: 'public',  // Archivos estáticos se servirán desde aquí
   server: {
     open: true,  // Abre el navegador automáticamente
@@ -14,4 +14,4 @@ export default defineConfig({
       }
     }
   }
-});
+}); 
