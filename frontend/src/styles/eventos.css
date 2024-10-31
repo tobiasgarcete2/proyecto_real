@@ -1,4 +1,4 @@
-
+/* Estilo global */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,116 +7,169 @@
 }
 
 body {
-    background-color: #f4f4f9;
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+    color: #1f2937;
 }
 
-main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
+/* Header */
 .header {
-    background-color:rgb(31, 38, 49);
+    background-color: #1f2937;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 85px;
-    padding: 5px 10%;
-}
-
-.header .logo {
-    cursor: pointer;
+    padding: 15px 10%;
 }
 
 .header .logo img {
-    height: 70px;
-    width: auto;
-    transition: all 0.3s;
+    height: 50px;
     border-radius: 50%;
+    transition: transform 0.3s;
 }
 
 .header .logo img:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .header .nav-links {
     list-style: none;
-    font-size: 20px;
-}
-
-.header .nav-links li {
-    display: inline-block;
-    padding: 0 20px;
-}
-
-.header .nav-links li:hover {
-    transform: scale(1.1);
+    display: flex;
+    gap: 20px;
 }
 
 .header .nav-links a {
-    font-weight: 700;
-    color: #eceff1;
+    color: #f3f4f6;
+    font-weight: bold;
     text-decoration: none;
+    transition: color 0.3s;
 }
 
-.header .nav-links li a:hover {
+.header .nav-links a:hover {
     color: #ffbc0e;
 }
 
-.header .btn-container {
+.search-container {
     display: flex;
-    gap: 0; 
 }
 
-.header .btn button {
-    font-weight: 700;
-    color: #1b3039;
-    padding: 9px 25px;
-    background: #ffffff;
+#searchBar {
+    padding: 8px 12px;
     border: none;
-    border-radius: 50px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #4a90e2;
+    color: white;
     cursor: pointer;
-    transition: all 0.3s ease 0s;
-    margin: 3px;
+    transition: background 0.3s;
 }
 
-.header .btn button:hover {
-    background-color: #e2f1f8;
-    color: #ffbc0e;
-    transform: scale(1.1);
+button:hover {
+    background-color: #357ab6;
 }
 
-
-#tus-publicaciones {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 60px;
-    gap: 16px;
-    flex-wrap: wrap;
-    min-width: 100vw;
-    min-height: 100vh;
-}
-
-.miTitulo{
-    margin-top: 40px;
-}
-
-.card-publi{
+/* Main y Título */
+.main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    background-color: gray;
-    gap: 15px
+    padding: 60px 0;
+    width: 100%;
+}
+
+.miTitulo {
+    font-size: 28px;
+    color: #1f2937;
+    margin-bottom: 30px;
+}
+
+/* Contenedor de publicaciones */
+#tus-publicaciones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0 10%;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
     #tus-publicaciones {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 
+/* Estilo de tarjeta */
+.card-publi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.card-publi:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.card-title-publi {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1f2937;
+    margin: 10px 0;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #4b5563;
+    margin: 5px 0;
+}
+
+.card-link {
+    color: #0072ff;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 15px;
+    transition: color 0.3s;
+}
+
+.card-link:hover {
+    color: #4a90e2;
+}
+
+/* Estrellas */
+.star-rating {
+    display: flex;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.star svg {
+    fill: #cbd5e1;
+    transition: fill 0.3s;
+}
+
+.star svg:hover,
+.star svg:hover ~ svg {
+    fill: #facc15;
+}
