@@ -18,7 +18,10 @@
             <ul class="enlaces-nav">
                 <li><a href="/front_empresa/index.html">Inicio</a></li>
             </ul>
+            <a id="botonCerrarSesion" class="btn" href="javascript:void(0);">
+                <button>Cerrar Sesión</button></a>   
         </nav>
+        
     </header>
 
     <div class="container perfil-container mt-5">
@@ -127,6 +130,26 @@
             const parts = value.split(`; ${name}=`);
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
+    </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Función para cerrar sesión
+            function logout() {
+                // Eliminar la cookie del token
+                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
+                // Otras acciones de cierre de sesión
+                localStorage.removeItem('username'); // Si estás almacenando el nombre de usuario en localStorage
+                window.location.href = '/login.html'; // Redirigir a la página de inicio de sesión
+                alert("se cerró la sesion correctamente");
+            }
+    
+            // Agregar el evento de clic al botón de cerrar sesión
+            const logoutBtn = document.getElementById('botonCerrarSesion');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+        });
     </script>
 </body>
 </html>
