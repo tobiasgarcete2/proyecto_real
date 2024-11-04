@@ -7,6 +7,7 @@
     <title>JobHunter</title>
     <link rel="stylesheet" href="../../src/styles/index.css">
     <link rel="shortcut icon" href="../src/img/logos.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -30,15 +31,11 @@
                 <ul class="nav-links">
                     <li><a href="/eventos.html">postularse</a></li>
                </ul>
-                <li class="enlaces-nav"><a href="/front_usuario/perfilcliente.html">Perfil</a></li>
+                <li class="enlaces-nav"><a href="/front_usuario/perfilcliente.html"><i class="fa-regular fa-user"></i></a></li>
                 <!-- Mover la palabra "Perfil" al final -->
             </ul>
         </nav>
         <div class="contenedor-botones" id="navv"> <!-- Icono de foto de perfil -->
-            <a id="botonCerrarSesion" class="btn" href="javascript:void(0);">
-                <button>Cerrar Sesión</button>
-            </a>            
-        </li> </div>
     </header>
     <!-- Carrusel de imágenes -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -68,26 +65,6 @@
         </a>
     </div>
     <!-- Bootstrap JS and dependencies -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Función para cerrar sesión
-            function logout() {
-                // Eliminar la cookie del token
-                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    
-                // Otras acciones de cierre de sesión
-                localStorage.removeItem('username'); // Si estás almacenando el nombre de usuario en localStorage
-                window.location.href = '/login.html'; // Redirigir a la página de inicio de sesión
-                alert("se cerró la sesion correctamente");
-            }
-    
-            // Agregar el evento de clic al botón de cerrar sesión
-            const logoutBtn = document.getElementById('botonCerrarSesion');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', logout);
-            }
-        });
-    </script>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
