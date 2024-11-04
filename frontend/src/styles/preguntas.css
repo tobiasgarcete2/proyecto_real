@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.faq {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.faq:hover {
+    background: #f9f9f9;
+}
+
+.question {
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0;
+}
+
+.answer {
+    display: none;
+    margin-top: 5px;
+}
+
+.answer.active {
+    display: block;
+}

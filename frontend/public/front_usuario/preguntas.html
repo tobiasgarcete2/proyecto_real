@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas Frecuentes</title>
+    <link rel="stylesheet" href="/frontend/src/styles/preguntas.css"> <!-- Enlazamos el archivo CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Preguntas Frecuentes</h1>
+    </header>
+
+    <main>
+        <div class="faq">
+            <div class="question">¿Qué es este servicio?</div>
+            <div class="answer">Este servicio proporciona información y apoyo sobre diferentes temas relacionados con nuestra plataforma.</div>
+        </div>
+
+        <div class="faq">
+            <div class="question">¿Cómo puedo registrarme?</div>
+            <div class="answer">Puedes registrarte haciendo clic en el botón de registro en la página de inicio y siguiendo las instrucciones.</div>
+        </div>
+
+        <div class="faq">
+            <div class="question">¿Qué hago si olvido mi contraseña?</div>
+            <div class="answer">Si olvidas tu contraseña, puedes hacer clic en "¿Olvidaste tu contraseña?" en la página de inicio de sesión y seguir las instrucciones.</div>
+        </div>
+
+        <div class="faq">
+            <div class="question">¿Cómo contacto al soporte técnico?</div>
+            <div class="answer">Puedes contactar al soporte técnico a través de nuestro formulario de contacto en la página de ayuda.</div>
+        </div>
+    </main>
+
+    <script>
+        // Script para mostrar y ocultar respuestas
+        const faqs = document.querySelectorAll('.faq');
+
+        faqs.forEach(faq => {
+            faq.querySelector('.question').addEventListener('click', () => {
+                faq.querySelector('.answer').classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
