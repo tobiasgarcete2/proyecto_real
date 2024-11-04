@@ -13,6 +13,8 @@ header.encabezado {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px; /* Ajusta el padding según tus necesidades */
+    background-color: #2c2c2c; /* Color de fondo */
+    color: #fff; /* Color del texto */
 }
 
 /* Ajustar el tamaño del logo */
@@ -28,41 +30,48 @@ nav ul.enlaces-nav {
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 100px; /* Espacio entre enlaces */
-}
-/*lleva el perfil al final de la barra de navvegacion */
-
-nav ul.enlaces-nav li:last-child {
-    margin-right: 0;
+    gap: 50px; /* Espacio entre enlaces */
 }
 
 /* Estilos de los enlaces */
 nav ul.enlaces-nav li {
-    margin: 0 15px;
+    margin: 0; /* Sin margen en los elementos de lista */
 }
 
 nav ul.enlaces-nav li a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
+    display: flex;
+    align-items: center; /* Alinear icono y texto verticalmente */
     transition: color 0.3s ease; /* Transición suave para el efecto hover */
 }
 
 nav ul.enlaces-nav li a:hover {
-    color: #28a745; /* Color verde para el efecto hover */
+    color: #64a4f8; /* Color verde para el efecto hover */
 }
 
-/* Estilos del encabezado */
-header.encabezado {
-    background-color: #2c2c2c;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+/* Estilos del icono del logo */
+.logo {
+    font-size: 24px; /* Tamaño del ícono */
+    color: #3498db; /* Color del ícono */
+}
+.perfil{
+    margin-left: auto;
+}
+/* Estilos del perfil */
+.perfil a {
+    display: flex;
+    align-items: end; /* Alinear icono y texto verticalmente */
+}
+
+.perfil a span {
+    margin-left: auto /* Espacio entre icono y texto */
 }
 
 /* Estilos de los botones */
 .contenedor-botones .btn button {
-    background-color: #28a745; /* Color verde */
+    background-color: #55b6e2; /* Color verde */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -73,7 +82,7 @@ header.encabezado {
 }
 
 .contenedor-botones .btn button:hover {
-    background-color: #218838; /* Color verde más oscuro para el hover */
+    background-color: #55b6e2; /* Color verde más oscuro para el hover */
 }
 
 /* Estilos del carrusel */
@@ -86,6 +95,8 @@ header.encabezado {
     width: 100%;
     height: auto;
 }
+
+/* Pie de página */
 .footer {
     background-color: #2c3e50; /* Color de fondo */
     color: white; /* Color del texto */
