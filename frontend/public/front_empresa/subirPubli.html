@@ -72,26 +72,41 @@
            const parts = value.split(`; ${name}=`);
            if (parts.length === 2) return parts.pop().split(';').shift();}
 
-      document.querySelector("#nueva-publicacion-form").addEventListener("submit",(e)=>{
-        e.preventDefault(e)
-        const title = document.querySelector("#title").value;
-        const description = document.querySelector("#description").value
+           document.querySelector("#nueva-publicacion-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const title = document.querySelector("#title").value;
+  const description = document.querySelector("#description").value;
 
-        const data = {
-          title,
-          description,
-          role: userRole,
-          userId: decodedToken.id  
-        }
+  const data = {
+    title,
+    description,
+    role: userRole,
+    userId: decodedToken.id
+  };
 
-        fetch("http://localhost:4000/post/", {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-      })
+  fetch("http://localhost:4000/post/", {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      // Redirigir a la página de eventos de la empresa si la publicación es exitosa
+      window.location.href = "/public/front_empresa/EventosEmpresa.html";
+    } else {
+      return response.json().then(err => {
+        throw new Error(err.message);
+      });
+    }
+  })
+  .catch(error => {
+    console.error("Error al crear la publicación:", error);
+    alert("Hubo un error al enviar la publicación. Por favor, intenta de nuevo.");
+  });
+});
+
    </script>
 
   </body>
