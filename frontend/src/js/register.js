@@ -36,3 +36,6 @@ document.getElementById('signup-form').addEventListener('submit', async (event) 
         alert('Hubo un error en el registro. Detalles: ' + error.message);
     }
 });
+
+
+//hola jiji
