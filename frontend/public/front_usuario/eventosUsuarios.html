@@ -62,6 +62,7 @@
   nuevaDescripcion.classList.add('card-text');
   nuevaDescripcion.textContent = descripcion;
 
+
   const enlaceLeerMas = document.createElement('a');
   enlaceLeerMas.classList.add('card-link');
   enlaceLeerMas.href = '#';
@@ -142,13 +143,12 @@
 }    
     </Script>
     <Script>
-      fetch('http://localhost:4000/users')
+      fetch('http://localhost:4000/post')
      .then(response => response.json()).then(
       (array)=>
-      array.forEach(element => {
-          element.role == 'empresa' && 
-          crearNuevaPublicacion(element.username, element.role, element.id)
-      })
+      array.forEach(element => 
+          crearNuevaPublicacion(element.title, element.description, element.id)
+      )
      )
   </Script>
 </body>

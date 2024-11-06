@@ -16,6 +16,7 @@
         alert("debe iniciar sesión para ingresar a esta sección")
         window.location.href = '/login.html';
     }
+    
 </script>
     <header class="header">
         <div class="logo">
@@ -25,7 +26,7 @@
             <ul class="nav-links">
                  <li><a onclick="history.go(-1)">Inicio</a></li>
             </ul>      
-            <li><a href="subirPubli.html">Subir Publicación</a></li>
+            <li><a href="subirPubli.html" style=" background-color: rgb(79, 13, 79); display:flex; border-radius: 16px; height: 3vh; width: 20vh; text-align: center; box-shadow: 16px;">Subir Publicación</a></li>
         </ul>      
          </nav>
         <div class="search-container">
@@ -68,6 +69,21 @@
   enlaceLeerMas.classList.add('card-link');
   enlaceLeerMas.href = '#';
   enlaceLeerMas.textContent = 'Postularse';
+
+  const eliminar = document.createElement('button');
+  eliminar.classList.add('card-link');
+  eliminar.href = '#';
+  eliminar.textContent = 'Borrar';
+  eliminar.addEventListener('click', () => {
+    fetch(`http://localhost:4000/post/${postId}`,{
+      method: 'DELETE',
+      credentials:"include"
+    })
+  })
+
+
+
+
 
   // Contenedor para las estrellas
   const contenedorEstrellas = document.createElement('div');
@@ -137,6 +153,7 @@
   cuerpoTarjeta.appendChild(nuevaDescripcion);
   cuerpoTarjeta.appendChild(contenedorEstrellas); // Añadir estrellas
   cuerpoTarjeta.appendChild(enlaceLeerMas);
+  cuerpoTarjeta.appendChild(eliminar);
 
   nuevaTarjeta.appendChild(nuevaImagen);
   nuevaTarjeta.appendChild(cuerpoTarjeta);
@@ -144,12 +161,11 @@
 }    
     </Script>
     <Script>
-        fetch('http://localhost:4000/users')
+        fetch('http://localhost:4000/post')
        .then(response => response.json()).then(
         (array)=>
         array.forEach(element => {
-            element.role == 'desempleado' && 
-            crearNuevaPublicacion(element.username, element.role, element.id)
+            crearNuevaPublicacion(element.title, element.description, element.id)
         })
        )
     </Script>
