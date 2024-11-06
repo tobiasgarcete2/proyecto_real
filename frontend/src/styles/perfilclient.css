@@ -145,7 +145,7 @@ header ul li a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Fondo negro con transparencia */
+    background: rgba(0, 0, 0, 0.493); /* Fondo negro con transparencia */
     backdrop-filter: blur(5px); /* Efecto de desenfoque */
     z-index: 500; /* Asegurarse de que la capa borrosa esté por encima del contenido */
 }
