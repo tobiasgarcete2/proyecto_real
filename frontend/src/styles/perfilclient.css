@@ -156,7 +156,7 @@ header ul li a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
-    background-color: rgb(247, 83, 83); /* Fondo blanco para el formulario */
+    background-color: #17a2b8; /* Fondo blanco para el formulario */
     border-radius: 8px; /* Bordes redondeados */
     padding: 20px; /* Espaciado interno */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el formulario */

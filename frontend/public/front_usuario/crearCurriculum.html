@@ -3,38 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de usuario</title>
-    <link rel="stylesheet" href="./assets/css/crearCurriculum.css">
+    <title>Perfil de Usuario - Crear CV</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="./assets/js/crearCurriculum.js" defer></script> <!-- Enlace al archivo JavaScript -->
+    <script src="/src/js/crearCurriculum.js"></script>
+    <link rel="stylesheet" href="/src/styles/crearCurriculum.css">
 </head>
 <body>
 
     <div class="login-container">
         <h2>Crear CV</h2>
-        <div class="form-group">
-            <label for="habilidades">Habilidades</label>
-            <input type="text" id="habilidades" name="habilidades" required>
-        </div>
-        <div class="form-group">
-            <label for="estudios">Mis estudios</label>
-            <input type="text" id="estudios" name="estudios" required>
-        </div>
-        <div class="form-group">
-            <label for="idiomas">Idiomas</label>
-            <input type="text" id="idiomas" name="idiomas" required>
-        </div>
-        <div class="form-group">
-            <label for="foto">Foto</label>
-            <input type="file" id="foto" name="foto" accept="image/" required>
-        </div>
-        <div class="form-group">
-            <label for="video">Video de presentación</label>
-            <input type="file" id="video" name="video" accept="video/" required>
-            <video id="videoPreview" controls style="display: none; width: 100%; margin-top: 10px;"></video>
-        </div>
-        <button type="button" id="crearCVButton">Crear CV</button>
-         <a href="../Client/perfilcliente.html">Mi Perfil</a></p>
+        <form id="cvForm">
+            <div class="form-group">
+                <label for="habilidades">Habilidades</label>
+                <input type="text" id="habilidades" name="habilidades" required placeholder="Escribe tus habilidades">
+            </div>
+            <div class="form-group">
+                <label for="estudios">Mis estudios</label>
+                <input type="text" id="estudios" name="estudios" required placeholder="Escribe tus estudios">
+            </div>
+            <div class="form-group">
+                <label for="idiomas">Idiomas</label>
+                <input type="text" id="idiomas" name="idiomas" required placeholder="Escribe tus idiomas">
+            </div>
+            <!-- Nueva sección de experiencia laboral -->
+            <div class="form-group">
+                <label for="experiencia">Experiencia laboral</label>
+                <textarea id="experiencia" name="experiencia" required placeholder="Describe tu experiencia laboral"></textarea>
+            </div>
+            <!-- Nueva sección de formación adicional -->
+            <div class="form-group">
+                <label for="formacion_adicional">Formación adicional</label>
+                <textarea id="formacion_adicional" name="formacion_adicional" placeholder="Otros cursos o formaciones relevantes"></textarea>
+            </div>
+            <!-- Nueva sección de referencias -->
+            <div class="form-group">
+                <label for="referencias">Referencias</label>
+                <textarea id="referencias" name="referencias" placeholder="Escribe las referencias, si las tienes"></textarea>
+            </div>
+            <!-- Nueva sección de intereses -->
+            <div class="form-group">
+                <label for="intereses">Intereses</label>
+                <textarea id="intereses" name="intereses" placeholder="Habla sobre tus intereses y pasatiempos"></textarea>
+            </div>
+            <!-- Nueva sección de objetivos -->
+            <div class="form-group">
+                <label for="objetivos">Objetivos profesionales</label>
+                <textarea id="objetivos" name="objetivos" placeholder="Escribe tus objetivos profesionales a corto y largo plazo"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="foto">Foto</label>
+                <input type="file" id="foto" name="foto" accept="image/*" required>
+                <img id="fotoPreview" alt="Vista previa de la foto" style="display: none; margin-top: 10px; max-width: 200px;">
+            </div>
+            <div class="form-group">
+                <label for="video">Video de presentación</label>
+                <input type="file" id="video" name="video" accept="video/*" required>
+                <video id="videoPreview" controls style="display: none; margin-top: 10px; width: 100%;"></video>
+            </div>
+            <button type="submit" id="crearCVButton">Crear CV</button>
+        </form>
+        <a href="../Client/perfilcliente.html" id="perfilLink">Mi Perfil</a>
     </div>
+
 </body>
 </html>
