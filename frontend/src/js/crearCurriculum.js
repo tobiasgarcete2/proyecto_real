@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const fotoPreview = document.getElementById('fotoPreview');
     const crearCVButton = document.getElementById('crearCVButton');
 
-    // Previsualización de la foto
     fotoInput.addEventListener('change', function () {
         const file = fotoInput.files[0];
         if (file) {
@@ -18,9 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Manejo de la creación y descarga del CV en formato PDF
     crearCVButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Prevenir el comportamiento de envío del formulario
+        event.preventDefault();
 
         const habilidades = document.getElementById('habilidades').value;
         const estudios = document.getElementById('estudios').value;
@@ -31,33 +29,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const intereses = document.getElementById('intereses').value;
         const objetivos = document.getElementById('objetivos').value;
 
-        // Crear un nuevo PDF con jsPDF
         const pdf = new jsPDF();
         pdf.setFont('helvetica');
         pdf.setFontSize(22);
-
-        // Fondo y color de encabezado
-        pdf.setFillColor(0, 51, 102); // Color azul oscuro
-        pdf.rect(0, 0, pdf.internal.pageSize.width, 30, 'F'); // Fondo azul en la parte superior
-        pdf.setTextColor(255, 255, 255);  // Texto blanco para el encabezado
+        pdf.setFillColor(0, 51, 102);
+        pdf.rect(0, 0, pdf.internal.pageSize.width, 30, 'F');
+        pdf.setTextColor(255, 255, 255);
         pdf.text('Currículum Vitae', 20, 20);
 
         pdf.setFontSize(14);
-        pdf.setTextColor(0, 0, 0);  // Color de texto negro para el contenido
+        pdf.setTextColor(0, 0, 0);
 
-        // Secciones con bordes redondeados
         function drawSection(title, content, yPosition) {
             pdf.setFont('helvetica', 'bold');
             pdf.text(title, 20, yPosition);
             pdf.setFont('helvetica', 'normal');
-            pdf.setTextColor(100, 100, 100);  // Color gris suave para el contenido
+            pdf.setTextColor(100, 100, 100);
             pdf.text(content, 20, yPosition + 10);
-            pdf.setTextColor(0, 0, 0);  // Volver al negro para siguientes secciones
-            pdf.line(20, yPosition + 12, pdf.internal.pageSize.width - 20, yPosition + 12);  // Línea de separación
+            pdf.setTextColor(0, 0, 0);
+            pdf.line(20, yPosition + 12, pdf.internal.pageSize.width - 20, yPosition + 12);
         }
 
-        // Llamada a la función para cada sección
-        let yPos = 40; // Establecemos la posición inicial en el eje Y
+        let yPos = 40;
         drawSection('Habilidades:', habilidades, yPos);
         yPos += 20;
         drawSection('Mis estudios:', estudios, yPos);
@@ -74,34 +67,18 @@ document.addEventListener('DOMContentLoaded', function () {
         yPos += 20;
         drawSection('Objetivos profesionales:', objetivos, yPos);
 
-        // Previsualización de la foto
         if (fotoInput.files.length > 0) {
             const fotoFile = fotoInput.files[0];
             const reader = new FileReader();
             reader.onload = function (e) {
                 const imgData = e.target.result;
-                pdf.addImage(imgData, 'JPEG', 150, 40, 40, 40);  // Foto de perfil con un tamaño adecuado
+                pdf.addImage(imgData, 'JPEG', 150, 40, 40, 40);
                 pdf.text('Foto de perfil', 150, 90);
+                pdf.save('curriculum.pdf');
             };
             reader.readAsDataURL(fotoFile);
+        } else {
+            pdf.save('curriculum.pdf');
         }
-
-        // Agregar texto en el footer
-        const pageHeight = pdf.internal.pageSize.height;
-        pdf.setFontSize(10);
-        pdf.setTextColor(100, 100, 100);  // Color gris para el footer
-        const footerText = 'JobHunter 2024';
-        
-        // Ajuste de la posición horizontal para centrar el texto
-        const footerWidth = pdf.getTextWidth(footerText);
-        const footerX = (pdf.internal.pageSize.width - footerWidth) / 2;
-        
-        // Ajuste de la posición vertical para asegurar que no se sobreponga con el contenido
-        const footerY = pageHeight - 10;
-
-        pdf.text(footerText, footerX, footerY);
-
-        // Descargar PDF
-        pdf.save('curriculum.pdf');
     });
 });

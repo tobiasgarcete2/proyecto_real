@@ -2,9 +2,10 @@
 
 // Cargar datos del perfil desde el localStorage al cargar la página
 window.onload = function () {
-    const nombreUsuario = localStorage.getItem('nombreUsuario') || 'John Doe';
-    const emailUsuario = localStorage.getItem('emailUsuario') || 'johndoe@example.com';
-    const telefonoUsuario = localStorage.getItem('telefonoUsuario') || '+123 456 789';
+
+    let nombreUsuario = localStorage.getItem("nombreUsuario");
+    const emailUsuario = localStorage.getItem("emailUsuario");
+    const telefonoUsuario = localStorage.getItem('telefonoUsuario')
     const descripcionUsuario = localStorage.getItem('descripcionUsuario') || 'Desarrollador web con experiencia en tecnologías frontend y backend.';
     const fotoPerfil = localStorage.getItem('fotoPerfil') || 'assets/img/default-user.png';
 
@@ -18,6 +19,8 @@ window.onload = function () {
 
 // Mostrar u ocultar el formulario de edición y la superposición
 document.getElementById('editProfileBtn').addEventListener('click', function () {
+
+    
     document.getElementById('editForm').classList.toggle('hidden');
     document.getElementById('overlay').classList.toggle('hidden');
 });
@@ -63,6 +66,20 @@ document.getElementById('saveProfileBtn').addEventListener('click', function () 
     localStorage.setItem('emailUsuario', emailFinal);
     localStorage.setItem('telefonoUsuario', telefonoFinal);
     localStorage.setItem('descripcionUsuario', descripcionFinal);
+
+    fetch("http://localhost:4000/auth/edit",{
+        body: JSON.stringify({
+            username: nombreFinal,
+            email: emailFinal,
+            telefono: telefonoFinal,
+            descripcion: descripcionFinal
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials:"include",
+        method: 'PUT'
+    })
 
     // Oculta el formulario y el overlay después de guardar
     document.getElementById('editForm').classList.add('hidden');
