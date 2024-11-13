@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario - Crear CV</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="/src/js/crearCurriculum.js"></script>
+    
     <link rel="stylesheet" href="/src/styles/crearCurriculum.css">
 </head>
 <body>
@@ -55,15 +55,13 @@
                 <input type="file" id="foto" name="foto" accept="image/*" required>
                 <img id="fotoPreview" alt="Vista previa de la foto" style="display: none; margin-top: 10px; max-width: 200px;">
             </div>
-            <div class="form-group">
-                <label for="video">Video de presentación</label>
-                <input type="file" id="video" name="video" accept="video/*" required>
-                <video id="videoPreview" controls style="display: none; margin-top: 10px; width: 100%;"></video>
-            </div>
+           
             <button type="submit" id="crearCVButton">Crear CV</button>
         </form>
         <a href="../Client/perfilcliente.html" id="perfilLink">Mi Perfil</a>
     </div>
+    <script src="/src/js/crearCurriculum.js" defer></script>
+
 
 </body>
 </html>
