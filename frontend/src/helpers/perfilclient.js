@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Cargar datos del perfil desde el localStorage al cargar la página
     window.onload = function () {
-        const nombreUsuario = localStorage.getItem('nombreUsuario') || 'John Doe';
+        const nombreUsuario = localStorage.getItem('nombreUsuario') || '';
         const emailUsuario = localStorage.getItem('emailUsuario') || 'johndoe@example.com';
         const telefonoUsuario = localStorage.getItem('telefonoUsuario') || '+123 456 789';
         const descripcionUsuario = localStorage.getItem('descripcionUsuario') || 'Desarrollador web con experiencia en tecnologías frontend y backend.';
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const descripcion = document.getElementById('descripcionInput').value;
 
             // Actualiza la información mostrada en el perfil
-            const nombreFinal = nombre || 'John Doe';
+            const nombreFinal = nombre || '2 Doe';
             const emailFinal = email || 'johndoe@example.com';
             const telefonoFinal = telefono || '+123 456 789';
             const descripcionFinal = descripcion || 'Desarrollador web con experiencia en tecnologías frontend y backend.';

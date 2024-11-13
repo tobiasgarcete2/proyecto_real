@@ -120,17 +120,18 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="/src/helpers/perfilclient.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         const token = getCookie('token'); // Cambia esto si usas localStorage
-    
+ 
         if (token) {
             const decodedToken = jwt_decode(token);
             console.log(decodedToken); // Verifica toda la información del token
-    
+
+            console.log(decodedToken.email)
+            
             // Acceder a las propiedades del token decodificado
             const userId = decodedToken.id; // ID del usuario
             const userEmail = decodedToken.email; // Correo electrónico del usuario
@@ -139,7 +140,7 @@
     
             // Mostrar los datos en el HTML
             document.getElementById('nombreUsuario').textContent = username; // Mostrar nombre
-            document.getElementById('emailUsuario').textContent = userEmail; // Mostrar email
+            document.querySelector("#emailUsuario").textContent = userEmail // Mostrar email
             document.getElementById('telefonoUsuario').textContent = "Ejemplo de teléfono"; // Define cómo obtienes el teléfono
             document.getElementById('descripcionUsuario').textContent = "Descripción del usuario"; // Define cómo obtienes la descripción
         } else {

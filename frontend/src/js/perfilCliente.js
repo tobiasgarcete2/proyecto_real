@@ -48,7 +48,7 @@ document.getElementById('saveProfileBtn').addEventListener('click', function () 
     const descripcion = document.getElementById('descripcionInput').value;
 
     // Actualiza la información mostrada en el perfil
-    const nombreFinal = nombre || 'John Doe';
+    const nombreFinal = nombre || 'John2 Doe';
     const emailFinal = email || 'johndoe@example.com';
     const telefonoFinal = telefono || '+123 456 789';
     const descripcionFinal = descripcion || 'Desarrollador web con experiencia en tecnologías frontend y backend.';
