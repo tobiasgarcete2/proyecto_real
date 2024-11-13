@@ -16,7 +16,7 @@ export const validarJWT = async (req, res, next) => {
 
     try {
         // Verificamos si el token es válido
-        const { id } = jwt.verify(token, 'mysecret');
+        const { id } = jwt.verify(token, 'mydefaultsecret');
 
         const connection = await newConex();
 
