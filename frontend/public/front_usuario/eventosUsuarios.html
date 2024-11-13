@@ -34,7 +34,7 @@
     </header>
     <main class="main">
         <div class="container text-center">
-            <h3 class="miTitulo" >EMPRESAS DESTACADAS</h3></div>
+            <h3 class="miTitulo" >EMPLEOS DISPONIBLES</h3></div>
             <div class= "group-publicaciones">
               <div id="tus-publicaciones" class="card-group "></div>
           </div>
@@ -61,6 +61,7 @@
   const nuevaDescripcion = document.createElement('p');
   nuevaDescripcion.classList.add('card-text');
   nuevaDescripcion.textContent = descripcion;
+
 
   const enlaceLeerMas = document.createElement('a');
   enlaceLeerMas.classList.add('card-link');
@@ -142,13 +143,12 @@
 }    
     </Script>
     <Script>
-      fetch('http://localhost:4000/users')
+      fetch('http://localhost:4000/post')
      .then(response => response.json()).then(
       (array)=>
-      array.forEach(element => {
-          element.role == 'empresa' && 
-          crearNuevaPublicacion(element.username, element.role, element.id)
-      })
+      array.forEach(element => 
+          crearNuevaPublicacion(element.title, element.description, element.id)
+      )
      )
   </Script>
 </body>
