@@ -4,5 +4,6 @@ export const router = Router()
 
 // Ruta protegida que requiere validación de JWT
 router.get('/',obtenerUsuarios);
+// router.get('/:id',editarUsuarios);
 
 export default router;

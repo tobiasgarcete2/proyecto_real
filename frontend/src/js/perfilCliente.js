@@ -1,22 +1,6 @@
 // perfilCliente.js
 
 // Cargar datos del perfil desde el localStorage al cargar la página
-window.onload = function () {
-
-    let nombreUsuario = localStorage.getItem("nombreUsuario");
-    const emailUsuario = localStorage.getItem("emailUsuario");
-    const telefonoUsuario = localStorage.getItem('telefonoUsuario')
-    const descripcionUsuario = localStorage.getItem('descripcionUsuario') || 'Desarrollador web con experiencia en tecnologías frontend y backend.';
-    const fotoPerfil = localStorage.getItem('fotoPerfil') || 'assets/img/default-user.png';
-
-    // Cargar datos en la interfaz
-    document.getElementById('nombreUsuario').innerText = nombreUsuario;
-    document.getElementById('emailUsuario').innerText = emailUsuario;
-    document.getElementById('telefonoUsuario').innerText = telefonoUsuario;
-    document.getElementById('descripcionUsuario').innerText = descripcionUsuario;
-    document.getElementById('profilePhoto').src = fotoPerfil;
-};
-
 // Mostrar u ocultar el formulario de edición y la superposición
 document.getElementById('editProfileBtn').addEventListener('click', function () {
 
@@ -26,9 +10,6 @@ document.getElementById('editProfileBtn').addEventListener('click', function () 
 });
 
 // Función para cambiar la foto de perfil
-document.getElementById('changePhotoBtn').addEventListener('click', function () {
-    document.getElementById('fileInput').click(); // Abre el selector de archivos
-});
 
 // Manejo de la carga de la imagen
 document.getElementById('fileInput').addEventListener('change', function (event) {
@@ -67,21 +48,57 @@ document.getElementById('saveProfileBtn').addEventListener('click', function () 
     localStorage.setItem('telefonoUsuario', telefonoFinal);
     localStorage.setItem('descripcionUsuario', descripcionFinal);
 
-    fetch("http://localhost:4000/auth/edit",{
-        body: JSON.stringify({
-            username: nombreFinal,
-            email: emailFinal,
-            telefono: telefonoFinal,
-            descripcion: descripcionFinal
-        }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials:"include",
-        method: 'PUT'
-    })
 
     // Oculta el formulario y el overlay después de guardar
     document.getElementById('editForm').classList.add('hidden');
     document.getElementById('overlay').classList.add('hidden');
+});
+
+document.getElementById("editar").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // 1. Obtener valores del formulario
+    const nombre = document.getElementById('nombreInput')?.value || 'John2 Doe';
+    const email = document.getElementById('emailInput')?.value || 'johndoe@example.com';
+    const telefono = document.getElementById('telefonoInput')?.value || '+123 456 789';
+    const descripcion = document.getElementById('descripcionInput')?.value || 'Desarrollador web con experiencia en tecnologías frontend y backend.';
+    const foto = document.getElementById("fileInput")?.files[0]; // archivo opcional
+
+    // 2. Actualiza la información mostrada en el perfil
+    document.getElementById('nombreUsuario').innerText = nombre;
+    document.getElementById('emailUsuario').innerText = email;
+    document.getElementById('telefonoUsuario').innerText = telefono;
+    document.getElementById('descripcionUsuario').innerText = descripcion;
+
+    // 3. Preparar FormData
+    const formData = new FormData();
+    formData.append("nombreUsuario", nombre);
+    // formData.append("emailUsuario", email);
+    // formData.append("telefonoUsuario", telefono);
+    // formData.append("descripcionUsuario", descripcion);
+    // if (foto) {
+    //     formData.append("foto", foto); // solo se agrega si el archivo existe
+    // }
+
+    // 4. Mostrar contenido de FormData para verificar
+    for (const pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    // 5. Enviar datos con fetch usando try-catch para el manejo de errores
+    try {
+        const response = await fetch('http://localhost:4000/auth/edit', {
+            method: "PUT",
+            credentials: "include",
+            body: formData,
+        });
+        
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        console.log("Formulario enviado con éxito:", await response.json());
+
+    } catch (error) {
+        console.error("FALLÓ EL ENVÍO:", error.message);
+    }
 });

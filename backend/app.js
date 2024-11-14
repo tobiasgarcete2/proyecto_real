@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, '../Client')));
 
 // Middleware para manejar cookies
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }))
 
 
 // Middlewares
@@ -29,7 +30,9 @@ app.use(cors({
     credentials: true, // Si necesitas enviar cookies u otras credenciales
     methods: ['GET','POST','PUT','DELETE'],
     validateOrigins: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization',],
+    preflightContinue: true,
+    optionsSuccessStatus: 204
 }));
 app.use(morgan('dev'));
 app.use(express.json());
