@@ -7,21 +7,53 @@
     <link rel="stylesheet" href="/src/styles/perfilclient.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.js"></script>
+   
 </head>
 <body>
     <header class="encabezado">
-        <div class="logo">
-            <img src="/src/img/logos.png" alt="Logo de la marca">
-        </div>
-        <nav>
-            <ul class="enlaces-nav">
-                <li><a href="/front_usuario/index.html">Inicio</a></li>
-            </ul>
-                      
-        </li> </div>
-        <a id="botonCerrarSesion" class="btn" href="javascript:void(0);">
-            <button>Cerrar Sesión</button>
-        </a> 
+        <!-- Logo -->
+        <nav class="navbar navbar-expand-lg navbar-light container-fluid">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="/front_usuario/index.html">
+                    <img src="/src/img/logos.png" alt="Logo de la marca" height="50" width="50" style="border-radius: 20px;">
+                </a>
+
+                <!-- Menú de inicio -->
+               
+
+                <!-- Botón Cerrar Sesión -->
+             
+
+                <!-- Menú desplegable para Consejos -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="consejos" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Dropdown de Consejos -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Consejos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="https://youtu.be/ZqqEPWe1Ad0?si=UcgnNNFe7LryzfFM" target="_blank">
+                                    Consejos para Entrevistas
+                                </a>
+                                <a class="dropdown-item" href="https://youtu.be/qweelAPzWBw?si=KfnR5eequSI0Chsh" target="_blank">
+                                    Consejos para armar un buen CV
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <a id="botonCerrarSesion" class="btn" href="javascript:void(0);">
+                    <button class="btn btn-outline-danger">Cerrar Sesión</button>
+                </a>
+            </div>
         </nav>
     </header>
 
@@ -42,7 +74,7 @@
         </div>
 
         <div class="informacion-adicional mt-4">
-            <h4>Acerca de</h4>
+            <h4>Acerca de mi</h4>
             <p id="descripcionUsuario">Descripción del usuario.</p>
         </div>
 
@@ -50,59 +82,57 @@
             <a id="myCVBtn" class="btn btn-warning" href="#" target="_blank">Mi CV</a>
         </div>
 
-        <div class="mt-3">
-            <a href="https://youtu.be/ZqqEPWe1Ad0?si=UcgnNNFe7LryzfFM" class="btn btn-primary">Consejos para Entrevistas</a>
-        </div>
-    </div>
-
-    <div class="modal fade" id="uploadCVModal" tabindex="-1" aria-labelledby="uploadCVModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadCVModalLabel">Mi CV</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Selecciona un archivo de CV existente </p>
-                    <input type="file" id="cvInput" accept=".pdf, .doc, .docx, .mp4">
-                </div>
-                <div class="modal-footer">
-                    <p> ¿No tienes una cuenta? Crea una <a href="crearCurriculum.html"><button class="btn btn-success" id="createCVBtn">Crear un CV</button></a></p>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <div class="modal fade" id="uploadCVModal" tabindex="-1" aria-labelledby="uploadCVModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadCVModalLabel">Mi CV</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Selecciona un archivo de CV existente </p>
+                        <input type="file" id="cvInput" accept=".pdf, .doc, .docx, .mp4">
+                    </div>
+                    <div class="modal-footer">
+                        <p> ¿No tienes una cuenta? Crea una <a href="crearCurriculum.html"><button class="btn btn-success" id="createCVBtn">Crear un CV</button></a></p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div id="overlay" class="overlay hidden"></div>
+
+        <div id="editForm" class="hidden">
+            <h4>Editar Perfil</h4>
+            <input type="text" id="nombreInput" class="form-control mb-2" placeholder="Nuevo nombre">
+            <input type="email" id="emailInput" class="form-control mb-2" placeholder="Nuevo email">
+            <input type="text" id="telefonoInput" class="form-control mb-2" placeholder="Nuevo teléfono">
+            <textarea id="descripcionInput" class="form-control mb-2" placeholder="Nueva descripción"></textarea>
+            
+            <button class="btn btn-secondary" id="changePhotoBtn">Cambiar Foto de Perfil</button>
+            <input type="file" id="fileInput" class="hidden" accept="image/*">
+
+            <button class="btn btn-success mt-2" id="saveProfileBtn">Guardar Cambios</button>
+        </div>
     </div>
-
-    <div id="overlay" class="overlay hidden"></div>
-
-    <div id="editForm" class="hidden">
-        <h4>Editar Perfil</h4>
-        <input type="text" id="nombreInput" class="form-control mb-2" placeholder="Nuevo nombre">
-        <input type="email" id="emailInput" class="form-control mb-2" placeholder="Nuevo email">
-        <input type="text" id="telefonoInput" class="form-control mb-2" placeholder="Nuevo teléfono">
-        <textarea id="descripcionInput" class="form-control mb-2" placeholder="Nueva descripción"></textarea>
-        
-        <button class="btn btn-secondary" id="changePhotoBtn">Cambiar Foto de Perfil</button>
-        <input type="file" id="fileInput" class="hidden" accept="image/*">
-
-        <button class="btn btn-success mt-2" id="saveProfileBtn">Guardar Cambios</button>
-    </div>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="../../src/js/perfilCliente.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         const token = getCookie('token'); // Cambia esto si usas localStorage
-    
+
         if (token) {
             const decodedToken = jwt_decode(token);
             console.log(decodedToken); // Verifica toda la información del token
-    
+
+            console.log(decodedToken.email)
+            
             // Acceder a las propiedades del token decodificado
             const userId = decodedToken.id; // ID del usuario
             const userEmail = decodedToken.email; // Correo electrónico del usuario
@@ -111,7 +141,7 @@
     
             // Mostrar los datos en el HTML
             document.getElementById('nombreUsuario').textContent = username; // Mostrar nombre
-            document.getElementById('emailUsuario').textContent = userEmail; // Mostrar email
+            document.querySelector("#emailUsuario").textContent = userEmail // Mostrar email
             document.getElementById('telefonoUsuario').textContent = "Ejemplo de teléfono"; // Define cómo obtienes el teléfono
             document.getElementById('descripcionUsuario').textContent = "Descripción del usuario"; // Define cómo obtienes la descripción
         } else {
@@ -120,31 +150,29 @@
     
         function getCookie(name) {
             const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
+            const parts = value.split(`; ${name}=`); 
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
     </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Función para cerrar sesión
-                function logout() {
-                    // Eliminar la cookie del token
-                    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        
-                    // Otras acciones de cierre de sesión
-                    localStorage.removeItem('username'); // Si estás almacenando el nombre de usuario en localStorage
-                    window.location.href = '/inicio.html'; // Redirigir a la página de inicio de sesión
-                    alert("se cerró la sesion correctamente");
-                }
-        
-                // Agregar el evento de clic al botón de cerrar sesión
-                const logoutBtn = document.getElementById('botonCerrarSesion');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', logout);
-                }
-            });
-        </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Función para cerrar sesión
+            function logout() {
+                // Eliminar la cookie del token
+                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     
-
+                // Otras acciones de cierre de sesión
+                localStorage.removeItem('username'); // Si estás almacenando el nombre de usuario en localStorage
+                window.location.href = '/login.html'; // Redirigir a la página de inicio de sesión
+                alert("se cerró la sesion correctamente");
+            }
+    
+            // Agregar el evento de clic al botón de cerrar sesión
+            const logoutBtn = document.getElementById('botonCerrarSesion');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+        });
+    </script>
 </body>
 </html>

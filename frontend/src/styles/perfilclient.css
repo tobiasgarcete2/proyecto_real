@@ -145,7 +145,7 @@ header ul li a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Fondo negro con transparencia */
+    background: rgba(0, 0, 0, 0.493); /* Fondo negro con transparencia */
     backdrop-filter: blur(5px); /* Efecto de desenfoque */
     z-index: 500; /* Asegurarse de que la capa borrosa esté por encima del contenido */
 }
@@ -156,9 +156,50 @@ header ul li a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
-    background-color: white; /* Fondo blanco para el formulario */
+    background-color: #17a2b8; /* Fondo blanco para el formulario */
     border-radius: 8px; /* Bordes redondeados */
     padding: 20px; /* Espaciado interno */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el formulario */
     z-index: 1000; /* Asegura que la tarjeta esté por encima */
+}
+/* Estilo para el botón de consejos sin fondo */
+#toggleButton {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    color: #17a2b8; /* Color del texto */
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#toggleButton:hover {
+    color: #138496; /* Color al pasar el ratón */
+}
+
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+
+#buttonsContainer.hidden {
+    display: none;
+}
+
+
+.nav-link{
+    color: aliceblue !important;
+}
+
+.dropdown{
+   margin-left: 10px;
+}
+
+.consejos{
+    margin-left: -100px !important;
 }

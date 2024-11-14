@@ -119,4 +119,14 @@ const session = async (req, res) => {
     }
 };
 
-export { registerUser, login, session };
+const editar = async (req, res) => {
+    const { id, username, email, role, docPers } = req.body;
+    console.log(username)
+    const conex = await newConex();
+    const hola = await conex.query("UPDATE USERS SET username = ? WHERE id_user = ? ",[username, req.user.id_user])
+    console.log(hola)
+    res.status(200).json({message:"salio bien"})
+}
+
+
+export { registerUser, login, session, editar };

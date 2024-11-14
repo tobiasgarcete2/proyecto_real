@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Preguntas Frecuentes</title>
+    <link rel="stylesheet" href="/src/styles/preguntas.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Formulario de Preguntas</h2>
+        <form id="preguntasForm" action="https://formsubmit.co/mirkoacosta99@gmail.com" method="POST" onsubmit="return mostrarConfirmacion()">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" placeholder="Tu correo" required>
+
+            <label for="pregunta">Tu pregunta:</label>
+            <textarea id="pregunta" name="pregunta" rows="4" placeholder="Escribe tu pregunta aquí..." required></textarea>
+
+            <input type="submit" value="Enviar">
+            
+            <input type="hidden" name="_captcha" value="false">
+        </form>
+        <div id="confirmacion" style="display: none;">
+            <p>¡Tu pregunta ha sido enviada exitosamente!</p>
+            <button onclick="volverAlInicio()">Volver al inicio</button>
+        </div>
+    </div>
+
+    <script>
+        function mostrarConfirmacion() {
+            // Prevenir el envío del formulario
+            event.preventDefault();
+
+            // Ocultar el formulario
+            document.getElementById('preguntasForm').style.display = 'none';
+
+            // Mostrar el mensaje de confirmación
+            document.getElementById('confirmacion').style.display = 'block';
+
+            // Enviar el formulario después de mostrar el mensaje (simular envío)
+            setTimeout(function() {
+                document.getElementById('preguntasForm').submit();
+            }, 1000); // 1 segundo de espera antes de enviar
+        }
+
+        function volverAlInicio() {
+            // Redirigir al usuario al inicio
+            window.location.href = "http://localhost:5173/front_usuario/index.html";
+        }
+    </script>
+</body>
+</html>
