@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicación</title>
+    <link rel="stylesheet" href="/src/styles/publicacion.css">
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo">
+            <img src="/src/img/logos.png" alt="Logo de la marca">
+        </div>
+        <nav class="navbar">
+            <ul class="enlaces-nav">
+                <ul class="nav-links">
+                    <li><a href="eventosUsuarios.html">volver</a></li>
+               </ul>  
+                <li class="perfil">
+                    <a href="/front_usuario/perfilcliente.html"><i class="fa-regular fa-user"></i> Perfil</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div id="publicacion-container" class="publicacion-container">
+            <h1 id="titulo-publicacion">Cargando título...</h1>
+            <img id="imagen-publicacion" src="" alt="Imagen de la publicación" style="display:none;">
+            <p id="descripcion-publicacion">Cargando descripción...</p>
+        </div>
+    </main>
+    
+    <script>
+
+  // Obtener el parámetro postId de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get('postId');  // Asegúrate de que 'postId' esté presente en la URL
+
+console.log('Post ID obtenido de la URL:', postId); // Verifica que el postId se está obteniendo correctamente
+
+// Función para cargar los datos de la publicación
+function cargarPublicacion(postId) {
+    console.log(`Intentando cargar publicación con ID: ${postId}`);
+    
+    // Verifica que el postId esté presente
+    if (!postId) {
+        console.error('No se proporcionó un postId válido');
+        document.getElementById('publicacion-container').textContent = 'No se encontró el ID de la publicación.';
+        return;
+    }
+    console.log(`URL de la API: http://localhost:4000/post/${postId}`);
+
+
+    fetch(`http://localhost:4000/post/post/${postId}`)
+    .then(response => {
+        console.log('Respuesta del servidor:', response);
+        if (!response.ok) {
+            // Imprimir el código de estado HTTP y el mensaje
+            throw new Error(`Error en la respuesta de la red: ${response.status} - ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Datos de la publicación:', data);
+        document.querySelector("#titulo-publicacion").textContent = data[0].title
+        document.querySelector("#descripcion-publicacion").textContent = data[0].description
+        // Aquí asignamos los datos a los elementos HTML
+    })
+    .catch(error => {
+        console.error('Error al cargar la publicación:', error);
+        document.getElementById('publicacion-container').textContent = 'Hubo un error al cargar la publicación: ' + error.message;
+    });
+}
+
+// Verificar si el postId está presente y cargar la publicación
+if (postId) {
+    cargarPublicacion(postId);
+} else {
+    console.error('No se encontró el ID de la publicación en la URL');
+    document.getElementById('publicacion-container').textContent = 'No se encontró el ID de la publicación.';
+}
+
+    </script>
+</body>
+</html>
+

@@ -6,7 +6,9 @@ import morgan from 'morgan';
 import path from 'path';
 import {authRoutes} from './src/routes/auth.routes.js';
 import { router } from './src/routes/publicaciones.routes.js';
+
 import userRouter from "./src/routes/user.routes.js"
+
 const PORT = process.env.PORT || 4000;
 import cookieParser from 'cookie-parser';
 const __filename = fileURLToPath(import.meta.url);

@@ -66,7 +66,11 @@
   const enlaceLeerMas = document.createElement('a');
   enlaceLeerMas.classList.add('card-link');
   enlaceLeerMas.href = '#';
-  enlaceLeerMas.textContent = 'Postularse';
+  enlaceLeerMas.textContent = 'Ver mas';
+  enlaceLeerMas.addEventListener('click', () => {
+    // Redireccionar a la página de detalle del evento
+    window.location.href = `/front_usuario/publicacion.html?postId=${postId}`;
+  });
 
   // Contenedor para las estrellas
   const contenedorEstrellas = document.createElement('div');
@@ -134,7 +138,7 @@
   // Añadir todo al cuerpo de la tarjeta
   cuerpoTarjeta.appendChild(nuevoTitulo);
   cuerpoTarjeta.appendChild(nuevaDescripcion);
-  cuerpoTarjeta.appendChild(contenedorEstrellas); // Añadir estrellas
+
   cuerpoTarjeta.appendChild(enlaceLeerMas);
 
   nuevaTarjeta.appendChild(nuevaImagen);

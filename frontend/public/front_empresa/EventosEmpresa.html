@@ -29,7 +29,7 @@
             <li><a href="subirPubli.html" style=" background-color: rgb(79, 13, 79); display:flex; border-radius: 16px; height: 3vh; width: 20vh; text-align: center; box-shadow: 16px;">Subir Publicación</a></li>
         </ul>      
          </nav>
-        <div class="search-container">
+        <div hre class="search-container">
             <input type="text" placeholder="Buscar..." id="searchBar">
             <button onclick="search()">Buscar</button>
         </div>
@@ -68,7 +68,11 @@
   const enlaceLeerMas = document.createElement('a');
   enlaceLeerMas.classList.add('card-link');
   enlaceLeerMas.href = '#';
-  enlaceLeerMas.textContent = 'Postularse';
+  enlaceLeerMas.textContent = 'Ver mas';
+  enlaceLeerMas.addEventListener('click', () => {
+    // Redireccionar a la página de detalle del evento
+    window.location.href = `/front_empresa/publicacion.html?id=${postId}`;
+  });
 
   const eliminar = document.createElement('button');
   eliminar.classList.add('card-link');
