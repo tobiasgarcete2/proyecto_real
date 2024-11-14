@@ -8,48 +8,67 @@
     <link rel="stylesheet" href="/src/styles/preguntas.css">
 </head>
 <body>
-    <div class="form-container">
-        <h2>Formulario de Preguntas</h2>
-        <form id="preguntasForm" action="https://formsubmit.co/mirkoacosta99@gmail.com" method="POST" onsubmit="return mostrarConfirmacion()">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+    <header class="encabezado">
+        <a class="navbar-brand" href="/front_usuario/index.html">
+            <img src="/src/img/logos.png" alt="Logo de la marca" height="50" width="50" style="border-radius: 20px;">
+        </a>
 
-            <label for="email">Correo electrónico:</label>
-            <input type="email" id="email" name="email" placeholder="Tu correo" required>
+        <nav>
+            <ul class="enlaces-nav">
+                <li><a href="eventosUsuarios.html">Opciones de trabajo</a></li>
+                <li class="perfil"><a href="perfilcliente.html"><i class="fa-regular fa-user"></i> Mi Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-container">
+        <div class="form-container">
+            <h2>Formulario de Preguntas</h2>
+            <form id="preguntasForm" action="https://formsubmit.co/jobhunter820@gmail.com" method="POST" onsubmit="return mostrarConfirmacion()">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
 
-            <label for="pregunta">Tu pregunta:</label>
-            <textarea id="pregunta" name="pregunta" rows="4" placeholder="Escribe tu pregunta aquí..." required></textarea>
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" placeholder="Tu correo" required>
 
-            <input type="submit" value="Enviar">
-            
-            <input type="hidden" name="_captcha" value="false">
-        </form>
-        <div id="confirmacion" style="display: none;">
-            <p>¡Tu pregunta ha sido enviada exitosamente!</p>
-            <button onclick="volverAlInicio()">Volver al inicio</button>
+                <label for="pregunta">Tu pregunta:</label>
+                <textarea id="pregunta" name="pregunta" rows="4" placeholder="Escribe tu pregunta aquí..." required></textarea>
+
+                <input type="submit" value="Enviar">
+                <input type="hidden" name="_captcha" value="false">
+            </form>
+            <div id="confirmacion" style="display: none;">
+                <p>¡Tu pregunta ha sido enviada exitosamente!</p>
+                <button onclick="volverAlInicio()">Volver al inicio</button>
+            </div>
+        </div>
+        <div class="faq-container">
+            <h3>Preguntas Frecuentes</h3>
+            <div class="faq-item">
+                <p><strong>¿Cómo puedo enviar una pregunta?</strong></p>
+                <p>Para enviar una pregunta, completa el formulario con tus datos y haz clic en "Enviar".</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>¿Cuánto tiempo tardan en responder?</strong></p>
+                <p>Normalmente, respondemos dentro de 24 a 48 horas.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>¿Puedo enviar más de una pregunta?</strong></p>
+                <p>Sí, puedes enviar tantas preguntas como necesites, pero por favor utiliza un formulario separado para cada una.</p>
+            </div>
         </div>
     </div>
-
     <script>
         function mostrarConfirmacion() {
-            // Prevenir el envío del formulario
             event.preventDefault();
-
-            // Ocultar el formulario
             document.getElementById('preguntasForm').style.display = 'none';
-
-            // Mostrar el mensaje de confirmación
             document.getElementById('confirmacion').style.display = 'block';
-
-            // Enviar el formulario después de mostrar el mensaje (simular envío)
             setTimeout(function() {
                 document.getElementById('preguntasForm').submit();
-            }, 1000); // 1 segundo de espera antes de enviar
+            }, 1000);
         }
 
         function volverAlInicio() {
-            // Redirigir al usuario al inicio
-            window.location.href = "http://localhost:5173/front_usuario/index.html";
+            window.location.href = "index.html";
         }
     </script>
 </body>
