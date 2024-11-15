@@ -1,104 +1,162 @@
-// perfilCliente.js
+// Función para cargar los datos del perfil
+async function loadProfileData() {
+    try {
+        const token = getCookie('token');
+        if (!token) {
+            console.error("No token found");
+            return;
+        }
 
-// Cargar datos del perfil desde el localStorage al cargar la página
-// Mostrar u ocultar el formulario de edición y la superposición
-document.getElementById('editProfileBtn').addEventListener('click', function () {
+        const decodedToken = jwt_decode(token);
+        
+        // Actualizar los elementos del DOM con los datos del usuario
+        document.getElementById('nombreUsuario').textContent = decodedToken.username || 'Usuario';
+        document.getElementById('emailUsuario').textContent = decodedToken.email || 'email@example.com';
+        document.getElementById('telefonoUsuario').textContent = decodedToken.telefono || 'No especificado';
+        document.getElementById('descripcionUsuario').textContent = decodedToken.descripcion || 'Sin descripción';
+        document.getElementById('perfil-info').filesContent = decodedToken.perfil || 'Perfil';
+        
+        // Si hay una foto de perfil
+        if (decodedToken.perfil) {
+            document.getElementById('profilePhoto').src = decodedToken.perfil;
+        }
+    } catch (error) {
+        console.error("Error loading profile data:", error);
+    }
+}
+const token = getCookie('token'); // Cambia esto si usas localStorage
 
+if (token) {
+
+    const decodedToken = jwt_decode(token);
+    console.log(decodedToken); // Verifica toda la información del token
+
+    console.log(decodedToken.email)
     
+    // Acceder a las propiedades del token decodificado
+    const userId = decodedToken.id; // ID del usuario
+    const userEmail = decodedToken.email; // Correo electrónico del usuario
+    const userRole = decodedToken.role; // Rol del usuario
+    const username = decodedToken.username; // Nombre de usuario
+
+    // Mostrar los datos en el HTML
+    document.getElementById('nombreUsuario').textContent = username; // Mostrar nombre
+    document.querySelector("#emailUsuario").textContent = userEmail // Mostrar email
+    document.getElementById('telefonoUsuario').textContent = "Ejemplo de teléfono"; // Define cómo obtienes el teléfono
+    document.getElementById('descripcionUsuario').textContent = "Descripción del usuario"; // Define cómo obtienes la descripción
+} else {
+    console.error("No se encontró el token");
+}
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';'); // Dividir todas las cookies
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim(); // Eliminar espacios adicionales
+        if (cookie.startsWith(name + '=')) { // Verificar si la cookie comienza con el nombre
+            return cookie.substring(name.length + 1); // Obtener el valor de la cookie
+        }
+    }
+    return null; // Si no se encuentra la cookie, retornar null
+}
+// Función para obtener cookies
+
+
+// Toggle del formulario de edición
+document.getElementById('editProfileBtn').addEventListener('click', function() {
     document.getElementById('editForm').classList.toggle('hidden');
     document.getElementById('overlay').classList.toggle('hidden');
+    
+    // Pre-llenar el formulario con los datos actuales
+    const nombreUsuario = document.getElementById('nombreUsuario').textContent;
+    const emailUsuario = document.getElementById('emailUsuario').textContent;
+    const telefonoUsuario = document.getElementById('telefonoUsuario').textContent;
+    const descripcionUsuario = document.getElementById('descripcionUsuario').textContent;
+    
+    document.getElementById('nombreInput').value = nombreUsuario;
+    document.getElementById('emailInput').value = emailUsuario;
+    document.getElementById('telefonoInput').value = telefonoUsuario;
+    document.getElementById('descripcionInput').value = descripcionUsuario;
 });
+document.addEventListener('DOMContentLoaded', () => {
+            // Función para cerrar sesión
+            function logout() {
+                // Eliminar la cookie del token
+                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
+                // Otras acciones de cierre de sesión
+                localStorage.removeItem('username'); // Si estás almacenando el nombre de usuario en localStorage
+                window.location.href = '/login.html'; // Redirigir a la página de inicio de sesión
+                alert("se cerró la sesion correctamente");
+            }
+    
+            // Agregar el evento de clic al botón de cerrar sesión
+            const logoutBtn = document.getElementById('botonCerrarSesion');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+        });
 
-// Función para cambiar la foto de perfil
-
-// Manejo de la carga de la imagen
-document.getElementById('fileInput').addEventListener('change', function (event) {
-    const file = event.target.files[0]; // Obtiene el primer archivo
-    if (file) {
-        const reader = new FileReader(); // Crea un objeto FileReader
-        reader.onload = function (e) {
-            document.getElementById('profilePhoto').src = e.target.result; // Actualiza la imagen de perfil
-            localStorage.setItem('fotoPerfil', e.target.result); // Guarda la nueva foto de perfil en localStorage
-        };
-        reader.readAsDataURL(file); // Lee el archivo como una URL de datos
-    }
-});
-
-// Función para guardar los cambios de perfil
-document.getElementById('saveProfileBtn').addEventListener('click', function () {
-    const nombre = document.getElementById('nombreInput').value;
-    const email = document.getElementById('emailInput').value;
-    const telefono = document.getElementById('telefonoInput').value;
-    const descripcion = document.getElementById('descripcionInput').value;
-
-    // Actualiza la información mostrada en el perfil
-    const nombreFinal = nombre || 'John2 Doe';
-    const emailFinal = email || 'johndoe@example.com';
-    const telefonoFinal = telefono || '+123 456 789';
-    const descripcionFinal = descripcion || 'Desarrollador web con experiencia en tecnologías frontend y backend.';
-
-    document.getElementById('nombreUsuario').innerText = nombreFinal;
-    document.getElementById('emailUsuario').innerText = emailFinal;
-    document.getElementById('telefonoUsuario').innerText = telefonoFinal;
-    document.getElementById('descripcionUsuario').innerText = descripcionFinal;
-
-    // Guardar los datos en localStorage
-    localStorage.setItem('nombreUsuario', nombreFinal);
-    localStorage.setItem('emailUsuario', emailFinal);
-    localStorage.setItem('telefonoUsuario', telefonoFinal);
-    localStorage.setItem('descripcionUsuario', descripcionFinal);
-
-
-    // Oculta el formulario y el overlay después de guardar
-    document.getElementById('editForm').classList.add('hidden');
-    document.getElementById('overlay').classList.add('hidden');
-});
-
+// Manejo del formulario de edición
 document.getElementById("editar").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // 1. Obtener valores del formulario
-    const nombre = document.getElementById('nombreInput')?.value || 'John2 Doe';
-    const email = document.getElementById('emailInput')?.value || 'johndoe@example.com';
-    const telefono = document.getElementById('telefonoInput')?.value || '+123 456 789';
-    const descripcion = document.getElementById('descripcionInput')?.value || 'Desarrollador web con experiencia en tecnologías frontend y backend.';
-    const foto = document.getElementById("fileInput")?.files[0]; // archivo opcional
-
-    // 2. Actualiza la información mostrada en el perfil
-    document.getElementById('nombreUsuario').innerText = nombre;
-    document.getElementById('emailUsuario').innerText = email;
-    document.getElementById('telefonoUsuario').innerText = telefono;
-    document.getElementById('descripcionUsuario').innerText = descripcion;
-
-    // 3. Preparar FormData
     const formData = new FormData();
-    formData.append("nombreUsuario", nombre);
-    // formData.append("emailUsuario", email);
-    // formData.append("telefonoUsuario", telefono);
-    // formData.append("descripcionUsuario", descripcion);
-    // if (foto) {
-    //     formData.append("foto", foto); // solo se agrega si el archivo existe
-    // }
+    formData.append("username", document.getElementById('nombreInput').value);
+    formData.append("email", document.getElementById('emailInput').value);
+    formData.append("telefono", document.getElementById('telefonoInput').value);
+    formData.append("descripcion", document.getElementById('descripcionInput').value);
 
-    // 4. Mostrar contenido de FormData para verificar
-    for (const pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
+    const foto = document.getElementById("fileInput").files[0];
+    if (foto) {
+        formData.append("foto", foto);
     }
 
-    // 5. Enviar datos con fetch usando try-catch para el manejo de errores
     try {
         const response = await fetch('http://localhost:4000/auth/edit', {
             method: "PUT",
             credentials: "include",
             body: formData,
         });
-        
+
         if (!response.ok) {
             throw new Error('Error en la respuesta del servidor');
         }
-        console.log("Formulario enviado con éxito:", await response.json());
 
+        const result = await response.json();
+        
+        // Actualizar la UI inmediatamente
+        document.getElementById('nombreUsuario').textContent = document.getElementById('nombreInput').value;
+        document.getElementById('emailUsuario').textContent = document.getElementById('emailInput').value;
+        document.getElementById('telefonoUsuario').textContent = document.getElementById('telefonoInput').value;
+        document.getElementById('descripcionUsuario').textContent = document.getElementById('descripcionInput').value;
+
+        // Si hay una nueva foto, mostrarla
+        if (foto) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profilePhoto').src = e.target.result;
+            };
+            reader.readAsDataURL(foto);
+        }
+
+        // Ocultar el formulario y la superposición
+        document.getElementById('editForm').classList.add('hidden');
+        document.getElementById('overlay').classList.add('hidden');
+
+        alert("Perfil actualizado correctamente");
     } catch (error) {
-        console.error("FALLÓ EL ENVÍO:", error.message);
+        console.error("Error al actualizar:", error);
+        alert("Ocurrió un error al actualizar el perfil.");
     }
 });
+
+// Cerrar sesión
+document.getElementById('botonCerrarSesion').addEventListener('click', function() {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    localStorage.removeItem('username');
+    window.location.href = '/login.html';
+    alert("Sesión cerrada correctamente");
+});
+
+// Cargar los datos del perfil al iniciar
+document.addEventListener('DOMContentLoaded', loadProfileData);

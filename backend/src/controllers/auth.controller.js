@@ -1,15 +1,37 @@
 import { newConex } from "../db/db.js";
 import { generarJWT } from "../helpers/generarJWT.js";
 import bcrypt from "bcrypt";
+import multer from "multer";
+import path from 'path';
+import { uploadImage } from "../utils/utils.js";
 
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Directorio donde se almacenarán los archivos
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Nombre único para el archivo
+  }
+});
+
+const upload = multer({ storage: storage });
 
 
 
 const registerUser = async (req, res) => {
-  const { username, email, password, role, docPers } = req.body;
+
+  const { username, password, email, role, docPers, descripcion } = req.body;
+
+ const perfilImage = req.files?.perfil; // El archivo subido estará en req.file
+  let perfil = ""
+  if(perfilImage) {
+    perfil = await uploadImage(perfilImage)
+  }
 
   // Verificar si los campos requeridos están presentes
-  if (!username || !email || !password || !role || !docPers) {
+  if (!username  || !password || !email || !role || !docPers) {
     return res
       .status(400)
       .send("Por favor, complete todos los campos del formulario");
@@ -38,8 +60,8 @@ const registerUser = async (req, res) => {
 
     // Insertar los datos en la tabla 'users'
     const [userResult] = await conex.query(
-      "INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)",
-      [username, email, password_hash, role]
+      "INSERT INTO users (username, password_hash, email, role, perfil, descripcion) VALUES (?, ?, ?, ?, ?, ?)",
+      [username, password_hash, email, role, perfil, descripcion]
     );
 
     const userId = userResult.insertId; // Obtener el ID del usuario recién insertado
@@ -59,6 +81,14 @@ const registerUser = async (req, res) => {
       await conex.rollback();
       return res.status(400).send("El rol especificado no es válido");
     }
+
+    // Si se subió un archivo de perfil, guardar su ruta
+    /* if (perfil) {
+      await conex.query(
+        "UPDATE users SET perfil = ? WHERE id = ?",
+        [perfil.path, userId]
+      );
+    } */
 
     // Confirmar la transacción
     await conex.commit();
@@ -87,7 +117,7 @@ const login = async (req, res) => {
 
   try {
     const [result] = await conex.query(
-      "SELECT id_user, username, email, password_hash, role FROM users WHERE email = ?",
+      "SELECT id_user, username, email, password_hash, role, perfil FROM users WHERE email = ?",
       [email]
     );
 
@@ -99,6 +129,8 @@ const login = async (req, res) => {
     }
 
     const usuario = result[0];
+
+    console.log(usuario);
 
     const passwordMatch = await bcrypt.compare(password, usuario.password_hash);
     if (!passwordMatch) {
@@ -114,7 +146,8 @@ const login = async (req, res) => {
       usuario.id_user,
       usuario.email,
       usuario.username,
-      usuario.role
+      usuario.role,
+      usuario.perfil
     );
 
     await conex.end();

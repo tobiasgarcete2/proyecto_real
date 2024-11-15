@@ -18,14 +18,9 @@
                 <a class="navbar-brand" href="/front_usuario/index.html">
                     <img src="/src/img/logos.png" alt="Logo de la marca" height="50" width="50" style="border-radius: 20px;">
                 </a>
+                <!--boton de volver hacia el index -->
+                <a href="/front_usuario/index.html" class="btn btn-primary">Volver</a>
 
-                <!-- Menú de inicio -->
-               
-
-                <!-- Botón Cerrar Sesión -->
-             
-
-                <!-- Menú desplegable para Consejos -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -59,7 +54,7 @@
 
     <div class="container perfil-container mt-5">
         <div class="perfil-info">
-            <div class="foto-perfil">
+            <div id="perfil-info" class="foto-perfil">
                 <img src="/src/img/logos.png" alt="Foto de perfil" id="profilePhoto">
             </div>
             <div class="datos-usuario">
@@ -112,8 +107,8 @@
                 <input type="text" id="nombreInput" name="username" class="form-control mb-2" placeholder="Nuevo nombre">
                 <input type="email" id="emailInput" name="email" class="form-control mb-2" placeholder="Nuevo email">
                 <input type="text" id="telefonoInput" class="form-control mb-2" placeholder="Nuevo teléfono">
-                <textarea id="descripcionInput" class="form-control mb-2" placeholder="Nueva descripción"></textarea>
-                <input type="file" id="fileInput" class="visible" name="foto" accept="image/*">
+                <textarea id="descripcionInput" class="form-control mb-2" placeholder="Nueva descripción" name="descripcion"></textarea>
+                <input type="file" id="fileInput" class="visible" name="perfil" accept="image/*">
                 
                 <button class="btn btn-success mt-2" id="saveProfileBtn" type="submit">Guardar Cambios</button>
             </form>
@@ -124,57 +119,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="../../src/js/perfilCliente.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        const token = getCookie('token'); // Cambia esto si usas localStorage
-
-        if (token) {
-
-            const decodedToken = jwt_decode(token);
-            console.log(decodedToken); // Verifica toda la información del token
-
-            console.log(decodedToken.email)
-            
-            // Acceder a las propiedades del token decodificado
-            const userId = decodedToken.id; // ID del usuario
-            const userEmail = decodedToken.email; // Correo electrónico del usuario
-            const userRole = decodedToken.role; // Rol del usuario
-            const username = decodedToken.username; // Nombre de usuario
-    
-            // Mostrar los datos en el HTML
-            document.getElementById('nombreUsuario').textContent = username; // Mostrar nombre
-            document.querySelector("#emailUsuario").textContent = userEmail // Mostrar email
-            document.getElementById('telefonoUsuario').textContent = "Ejemplo de teléfono"; // Define cómo obtienes el teléfono
-            document.getElementById('descripcionUsuario').textContent = "Descripción del usuario"; // Define cómo obtienes la descripción
-        } else {
-            console.error("No se encontró el token");
-        }
-    
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`); 
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Función para cerrar sesión
-            function logout() {
-                // Eliminar la cookie del token
-                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    
-                // Otras acciones de cierre de sesión
-                localStorage.removeItem('username'); // Si estás almacenando el nombre de usuario en localStorage
-                window.location.href = '/login.html'; // Redirigir a la página de inicio de sesión
-                alert("se cerró la sesion correctamente");
-            }
-    
-            // Agregar el evento de clic al botón de cerrar sesión
-            const logoutBtn = document.getElementById('botonCerrarSesion');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', logout);
-            }
-        });
-    </script>
 </body>
 </html>

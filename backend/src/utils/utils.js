@@ -1,9 +1,21 @@
 import cloudinary from "cloudinary";
 
+import multer from 'multer';
+import path from 'path';
+import fs from "fs-extra"
 
+// Configuración de multer para almacenar archivos en la carpeta 'uploads'
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'uploads')); // Ruta donde se guardarán los archivos
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Genera un nombre único para cada archivo
+    }
+});
 
-
-
+// Crear un objeto multer
+const upload = multer({ storage: storage });
 
 const Cloudinary = cloudinary.v2;
 
@@ -15,46 +27,20 @@ Cloudinary.config({
 
 
 
-const editar = async (req, res) => {
-    const { username } = req.body;
+export async function uploadImage(file) {
   try {
-    // 1. Desestructuración de los datos recibidos del cliente
-    // const {id} = req.param
-    console.log("Datos recibidos:", username);  
+    const uploadResult = await cloudinary.uploader.upload(file.tempFilePath, {
+      folder: 'uploads',
+    });
 
-    // // 2. Procesar la imagen si se ha subido
-    // let urlImg = "";
-    // if (req.file) {
-    //   // Renombrar archivo para mantener el nombre original
-    //   fs.renameSync(
-    //     `${req.file.path}`,
-    //     `${req.file.destination}/${req.file.originalname}`
-    //   );
+    console.log('Imagen subida correctamente:', uploadResult.secure_url);
 
-    //   // Subir imagen a Cloudinary
-    //   const url = await Cloudinary.uploader.upload(`${req.file.destination}/${req.file.originalname}`, {
-    //     use_filename: true,
-    //   });
+    // Eliminar archivo local después de la subida
+    fs.unlinkSync(file.tempFilePath);
 
-    //   // Guardar la URL de la imagen subida
-    //   urlImg = url.secure_url;
-    //   console.log("URL de la imagen en Cloudinary:", urlImg);
-    // }
-
-
-    // // 3. Conectar con la base de datos y realizar la actualización
-    // const conex = await newConex();
-    // const result = await conex.query(
-    //   ``,
-    // //   [...]
-    // );
-
-    // console.log("Resultado de la actualización en la base de datos:", result);
-
-    // 4. Responder con éxito
-    res.status(200).json({ message: "Actualización exitosa" }); //data:result
+    return uploadResult.secure_url;
   } catch (error) {
-    console.error("Error al editar el perfil:", error.message);
-    res.status(500).json({ message: "Hubo un error en el servidor", error: error.message });
+    console.error('Error al subir la imagen a Cloudinary:', error);
+    throw error;
   }
-};
+}

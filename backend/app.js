@@ -4,6 +4,7 @@ import { dirname } from 'path';
 import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
+import fileUpload from "express-fileupload"
 import {authRoutes} from './src/routes/auth.routes.js';
 import { router } from './src/routes/publicaciones.routes.js';
 import userRouter from "./src/routes/user.routes.js"
@@ -37,7 +38,11 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/uploads/'
+}
+))
 // Servir archivos estáticos desde la carpeta 'Client'
 app.use(express.static(path.join(__dirname, '../Client')));
 
@@ -45,6 +50,7 @@ app.use(express.static(path.join(__dirname, '../Client')));
 app.use('/auth', authRoutes);
 app.use('/post', router);
 app.use('/users', userRouter);
+app.use('/users', userRouter)
 
 // Ruta para manejar todas las demás solicitudes y servir el archivo HTML principal
 // app.get('*', (req, res) => {

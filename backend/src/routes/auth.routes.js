@@ -1,22 +1,24 @@
-import Router from "express";
+import express from "express"; // Correcta importación de express
+import multer from 'multer';
 import path from "path";
 import { registerUser, login, session } from "../controllers/auth.controller.js";
 import { editarUsuario } from "../controllers/usuarios.controller.js";
 import { validarJWT } from "../helpers/validarJWT.js";
-import multer from "multer";
 
-const upload = multer({
-  dest: "./src/uploads/",
-});
+const router = express.Router();  // Ahora se usa correctamente
 
-export const authRoutes = Router();
+// Rutas y lógica de tus endpoints
+/* router.post('/register', (req, res) => {
+  // Tu lógica para el registro
+}); */
 
-authRoutes.get("/register", (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../Client/registrarse.html'));
-});
+const upload = multer({ dest: 'uploads/' }); // Directorio de almacenamiento para archivos
 
-authRoutes.post("/register",  registerUser);  // Asegúrate de que la función registerUser esté correctamente importada
+export const authRoutes = router; // Usamos router directamente
+
+authRoutes.get("/register", upload.single('perfil'), registerUser);
+
+authRoutes.post("/register", registerUser);  // Asegúrate de que la función registerUser esté correctamente importada
 authRoutes.post("/login", login);            // Asegúrate de que la función login esté correctamente importada
 authRoutes.get("/session", validarJWT, session)
 authRoutes.put("/edit",validarJWT, editarUsuario)
-

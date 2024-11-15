@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { obtenerUsuarios} from "../controllers/usuarios.controller.js";
-export const router = Router()
+export const userRouter = Router()
 
 // Ruta protegida que requiere validación de JWT
-router.get('/',obtenerUsuarios);
+userRouter.get('/:id',obtenerUsuarios);
 // router.get('/:id',editarUsuarios);
 
-export default router;
+export default userRouter;

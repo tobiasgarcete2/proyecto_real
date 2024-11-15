@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { subirPublicacion, obtenerPublicaciones, eliminarPublicaciones, obtenerPublicacionId } from "../controllers/subir_publi.controller.js";
-import { validarJWT } from "../helpers/validarJWT.js";
 export const router = Router()
 
 // Ruta protegida que requiere validación de JWT

@@ -65,50 +65,24 @@
                     <input type="text" id="cuil" name="cuil" required>
                 </div>
 
+                
+                <div class="form-group" id="descripcionGroup">
+                    <label for="descripcion">Descripcion:</label>
+                    <input type="text" id="descripcion" name="descripcion" required>
+                </div>
+
+                <div class="form-group" id="perfillGroup">
+                    <label for="perfil">Foto de perfil:</label>
+                    <input type="file" id="perfil" name="perfil" required>
+                </div>
+
+
                 <button type="submit">Registrarse</button>
             </form>
         </div>
     </div>
 
     <script src="/src/js/register.js"></script>
-    <script>
-        document.getElementById('role').addEventListener('change', function() {
-            const role = this.value;
-            const nombreEmpresaGroup = document.getElementById('nombreEmpresaGroup');
-            const cuitGroup = document.getElementById('cuitGroup');
-            const nombreUsuarioGroup = document.getElementById('nombreUsuarioGroup');
-            const cuilGroup = document.getElementById('cuilGroup');
-
-            if (role === 'desempleado') {
-                nombreUsuarioGroup.style.display = 'block';
-                document.getElementById('nombre_desempleado').setAttribute('required', 'required');
-
-                nombreEmpresaGroup.style.display = 'none';
-                cuitGroup.style.display = 'none';
-                document.getElementById('nombre_empresa').removeAttribute('required');
-                document.getElementById('cuit').removeAttribute('required');
-
-                cuilGroup.style.display = 'block';
-                document.getElementById('cuil').setAttribute('required', 'required');
-            } else {
-                nombreUsuarioGroup.style.display = 'none';
-                document.getElementById('nombre_desempleado').removeAttribute('required');
-
-                nombreEmpresaGroup.style.display = 'block';
-                cuitGroup.style.display = 'block';
-                document.getElementById('nombre_empresa').setAttribute('required', 'required');
-                document.getElementById('cuit').setAttribute('required', 'required');
-
-                cuilGroup.style.display = 'none';
-                document.getElementById('cuil').removeAttribute('required');
-            }
-        });
-
-        // Inicializa la visibilidad de los campos al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('role').dispatchEvent(new Event('change'));
-        });
-    </script>
 </body>
 
 </html>

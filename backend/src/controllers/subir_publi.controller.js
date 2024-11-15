@@ -15,8 +15,9 @@ export const subirPublicacion = async (req, res) => {
 
 export const obtenerPublicaciones = async (req,res) =>{
     const db = await newConex();
-    const [publicaciones] = await db.query('SELECT * FROM publication');
+    const [publicaciones] = await db.query('SELECT u.perfil, u.username, p.title, p.description FROM publication p INNER JOIN users u ON p.userId = u.id_user');
     res.status(200).json(publicaciones);
+    console.log(publicaciones);
 }
 
 export const eliminarPublicaciones = async (req,res) => {
