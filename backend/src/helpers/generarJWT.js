@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'; // Asegúrate de que esta línea esté al inicio del archivo
 
-export const generarJWT = (id, email, username, role) => {
+export const generarJWT = (id, email, username, role, perfil) => {
     return new Promise((resolve, reject) => {
-        const payload = { id, email, username, role }; // Incluyendo username y role
+        const payload = { id, email, username, role, perfil }; // Incluyendo username y role
 
         const secretKey = process.env.JWT_SECRET || 'mydefaultsecret'; // Usar clave segura
 

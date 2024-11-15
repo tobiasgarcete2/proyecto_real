@@ -15,8 +15,9 @@ export const subirPublicacion = async (req, res) => {
 
 export const obtenerPublicaciones = async (req,res) =>{
     const db = await newConex();
-    const [publicaciones] = await db.query('SELECT * FROM publication');
+    const [publicaciones] = await db.query('SELECT u.perfil, u.username, p.title, p.description FROM publication p INNER JOIN users u ON p.userId = u.id_user');
     res.status(200).json(publicaciones);
+    console.log(publicaciones);
 }
 
 export const eliminarPublicaciones = async (req,res) => {
@@ -28,3 +29,23 @@ export const eliminarPublicaciones = async (req,res) => {
     await db.query('DELETE FROM publication WHERE id= ? AND userId = ? ', [id,decoded.id]);
     res.status(204).send();
 }
+
+export const obtenerPublicacionId = async (req, res) => {
+    console.log('hola aaaa')
+    const postId = req.params.id;  // Extrae el ID de los parámetros de la URL
+    console.log(postId);
+    const db = await newConex();
+
+    try {
+        const [publication] = await db.query('SELECT * FROM publication WHERE id = ?', [postId]);
+        if (publication) {
+            res.status(200).json(publication);  // Devuelve la publicación en formato JSON
+        } else {
+            res.status(404).json({ message: 'Publicación no encontrada' });  // Si no se encuentra la publicación
+        }
+    } catch (error) {
+        console.error('Error al consultar la base de datos:', error);
+        res.status(500).json({ message: 'Error al obtener la publicación' });
+    }
+};
+

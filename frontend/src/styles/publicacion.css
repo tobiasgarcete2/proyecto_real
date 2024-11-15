@@ -1,0 +1,189 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Estilos del encabezado */
+header.encabezado {
+    height: 100px; /* Ajusta la altura según tus necesidades */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c2c2c;
+    color: #fff;
+    padding: 0 20px;
+}
+
+/* Estilos generales del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Estilos del encabezado */
+header.encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2c2c2c;
+    color: #fff;
+    padding: 10px 20px;
+    height: 80px;
+}
+
+/* Ajustar el tamaño del logo */
+header.encabezado .logo img {
+    height: 60px; /* Ajusta la altura del logo */
+}
+
+/* Estilos de la barra de navegación */
+nav.navbar {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+/* Estilos de la lista de enlaces de navegación */
+ul.enlaces-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Llevar el perfil al final */
+.perfil {
+    margin-left: auto;
+}
+
+/* Estilos de los enlaces */
+nav ul.enlaces-nav li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+nav ul.enlaces-nav li a:hover {
+    color: #28a745; /* Color verde para el efecto hover */
+}
+
+/* Estilos de botones adicionales */
+.contenedor-botones .btn button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor-botones .btn button:hover {
+    background-color: #218838;
+}
+/* Contenedor de publicaciones *//* Estilos generales para la página */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para la barra de navegación */
+.encabezado {
+    background-color: #2c3e50;
+    padding: 20px 0;
+}
+
+.navbar .enlaces-nav {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.navbar .nav-links li {
+    display: inline;
+    margin: 0 20px;
+}
+
+.navbar .nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.navbar .nav-links a:hover {
+    color: #3498db;
+}
+
+/* Estilos para la carta de publicación */
+.publicacion-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.publicacion-container:hover {
+    transform: translateY(-5px); /* Efecto al pasar el mouse */
+}
+
+.publicacion-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.publicacion-container h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.publicacion-container p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Fondo para el contenedor de publicación cargada */
+#publicacion-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#publicacion-container img {
+    display: block;
+}
+
+#publicacion-container .loading-text {
+    color: #888;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+/* Estilo para el logo de la marca en el encabezado */
+.logo img {
+    height: 50px;
+    margin-left: 20px;
+}
+

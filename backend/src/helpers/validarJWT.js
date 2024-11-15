@@ -15,28 +15,29 @@ export const validarJWT = async (req, res, next) => {
     }
 
     try {
-        // Verificamos si el token es válido
         const { id } = jwt.verify(token, 'mydefaultsecret');
-
+        console.log("ID decodificado del token:", id);
+    
         const connection = await newConex();
-
-        // Buscar el usuario en la base de datos
+    
         const [usuario] = await connection.query('SELECT * FROM users WHERE id_user = ? LIMIT 1', [id]);
-
+        console.log("Usuario encontrado en la BD:", usuario);
+    
         if (!usuario || usuario.length === 0) {
-            await connection.end(); // Cerrar la conexión si no existe el usuario
+            console.log("Usuario no encontrado en la base de datos.");
+            await connection.end();
             return res.status(401).json({ msg: 'Token no válido - usuario no existe en la BD' });
         }
-        
-        // Agregamos el usuario a la request
+    
         req.user = usuario[0];
-
-        await connection.end(); // Cerrar la conexión si todo es correcto
-
-        next(); // Pasar al siguiente middleware o controlador
-
+        console.log("Usuario asignado a req.user:", req.user);
+    
+        await connection.end();
+        next();
+    
     } catch (error) {
-        console.log("Error de validación:", error);
+        console.log("Error de validación del token o en la conexión:", error);
         return res.status(401).json({ msg: 'Token no válido' });
     }
+    
 }
