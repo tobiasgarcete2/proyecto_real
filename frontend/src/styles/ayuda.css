@@ -1,0 +1,101 @@
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #2c2c2c;
+    color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Ajustar el tamaño del encabezado */
+header.encabezado {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color:  #2c2c2c;
+    color: #fff;
+}
+
+/* Ajustar el tamaño del logo */
+header.encabezado .logo img {
+    height: 80px;
+    margin-left: 20px;
+}
+
+/* Estilos de la navegación */
+nav ul.enlaces-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+/* Estilos de los enlaces */
+nav ul.enlaces-nav li {
+    margin: 0;
+}
+
+nav ul.enlaces-nav li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+nav ul.enlaces-nav li a:hover {
+    color: #64a4f8;
+}
+
+/* Secciones */
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: #cbe486;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ol {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Pie de página */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 3px solid #ff7e5f;
+}
+
+.footer a {
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #1e1e2f;
+}
