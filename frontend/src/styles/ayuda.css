@@ -99,3 +99,17 @@ li {
 .footer a:hover {
     color: #1e1e2f;
 }
+/* Estilos para el índice */
+ul li a {
+    color: #64a4f8; /* Color de texto */
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+ul li a:hover {
+    color: #fff; /* Color de texto cuando se pasa el mouse */
+    background-color: #64a4f8; /* Color de fondo cuando se pasa el mouse */
+    padding: 5px;
+    border-radius: 4px;
+}
