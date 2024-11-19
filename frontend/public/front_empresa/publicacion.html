@@ -3,9 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Publicación</title>
+    <link rel="stylesheet" href="/src/styles/publicacion.css">
 </head>
 <body>
-    <h1>hola mundo</h1>
+    <header class="header">
+        <div class="logo">
+            <a href="/index.html"><img src="/src/img/logos.png" alt=""></a>
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/public/front_empresa/EventosEmpresa.html">Volver a la lista de publicaciones</a></li> 
+        </ul>
+         </nav>
+    </header>
+
+
+     <script>
+        // Obtener el parámetro "id" de la URL
+    // Obtener el ID de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get('id');
+
+// Validar si el ID existe antes de hacer la solicitud
+if (!postId) {
+    alert('Publicación no encontrada');
+    window.location.href = '/front_empresa/EventosEmpresa.html'; // Redireccionar si no hay ID
+} else {
+    // Llamar al backend para obtener la publicación
+    fetch(`http://localhost:4000/post/${postId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No se pudo cargar la publicación');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Publicación:', data); // Verifica los datos obtenidos
+            // Mostrar los datos en la página
+            mostrarPublicacion(data);
+        })
+        .catch(error => {
+            console.error('Error al obtener la publicación:', error);
+            alert('Error al cargar la publicación. Inténtalo más tarde.');
+        });
+}
+
+// Función para mostrar la publicación en la página
+function mostrarPublicacion(data) {
+    const titulo = document.createElement('h1');
+    titulo.textContent = data.title;
+
+    const descripcion = document.createElement('p');
+    descripcion.textContent = data.description;
+
+    document.body.appendChild(titulo);
+    document.body.appendChild(descripcion);
+}
+
+     </script>
+
 </body>
 </html>

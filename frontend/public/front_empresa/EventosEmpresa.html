@@ -7,27 +7,34 @@
     <link rel="stylesheet" href="/src/styles/eventos.css">
 </head>
 <body>
-  <script>
-    // Verificar si el token está presente
-    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+<script>
+  // Verificar si el token está presente
+  const token = document.cookie.split('; ').find(row => row.startsWith('token='));
 
-    if (!token) {
-        // Redirigir a la página de inicio de sesión
-        alert("debe iniciar sesión para ingresar a esta sección")
-        window.location.href = '/login.html';
-    }
-    
+  if (!token) {
+      alert("Debe iniciar sesión para ingresar a esta sección");
+      window.location.href = '/login.html';
+  } else {
+      // Decodificar el token para obtener el rol del usuario
+      const payload = JSON.parse(atob(token.split('=')[1].split('.')[1])); // Decodificar payload del JWT
+      const userRole = payload.role; // Asegúrate de que el backend incluya este campo
+
+      // Mostrar botón "Subir Publicación" solo si el rol es "empresa"
+      if (userRole !== 'empresa') {
+          const subirPublicacion = document.querySelector('.nav-links li a[href="subirPubli.html"]');
+          if (subirPublicacion) subirPublicacion.style.display = 'none';
+      }
+  }
 </script>
     <header class="header">
         <div class="logo">
             <a href="/index.html"><img src="/src/img/logos.png" alt=""></a>
         </div>
         <nav>
-            <ul class="nav-links">
-                 <li><a href="index.html">Inicio</a></li>
-            </ul>      
-            <li><a href="subirPubli.html" style=" background-color: rgb(8, 27, 51); display:flex; border-radius: 16px; height: 3vh; width: 20vh; text-align: center; box-shadow: 16px;">Subir Publicación</a></li>
-        </ul>      
+          <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="subirPubli.html">Subir Publicación</a></li>
+        </ul>
          </nav>
         <div hre class="search-container">
             <input type="text" placeholder="Buscar..." id="searchBar">
@@ -44,39 +51,42 @@
         </div>
     </main>
     <SCript>
-        function crearNuevaPublicacion(username, perfil, titulo, descripcion, postId) {
-  const contenedorPublicaciones = document.querySelector('.card-group');
+    function crearNuevaPublicacion(username, perfil, titulo, descripcion, postId) {
+    const contenedorPublicaciones = document.querySelector('.card-group');
 
-  const nuevaTarjeta = document.createElement('div');
-  nuevaTarjeta.classList.add('card-publi');
+    const nuevaTarjeta = document.createElement('div');
+    nuevaTarjeta.classList.add('card-publi');
 
-  const nuevaImagen = document.createElement('img');
-  nuevaImagen.classList.add('card-img-top', 'cardImg');
-  nuevaImagen.src = perfil;
-  nuevaImagen.style.height="150px";
-  nuevaImagen.style.width = "150px";
-  const nombreUser= document.createElement('h3');
-  nombreUser.textContent= username;
-  const cuerpoTarjeta = document.createElement('div');
-  cuerpoTarjeta.classList.add('card-body');
+    const nuevaImagen = document.createElement('img');
+    nuevaImagen.classList.add('card-img-top', 'cardImg');
+    nuevaImagen.src = perfil;
+    nuevaImagen.style.height = "150px";
+    nuevaImagen.style.width = "150px";
+    const nombreUser = document.createElement('h3');
+    nombreUser.textContent = username;
+    const cuerpoTarjeta = document.createElement('div');
+    cuerpoTarjeta.classList.add('card-body');
 
-          
-  const nuevoTitulo = document.createElement('h5');
-  nuevoTitulo.classList.add('card-title-publi');
-  nuevoTitulo.textContent = titulo;
+    const nuevoTitulo = document.createElement('h5');
+    nuevoTitulo.classList.add('card-title-publi');
+    nuevoTitulo.textContent = titulo;
 
-  const nuevaDescripcion = document.createElement('p');
-  nuevaDescripcion.classList.add('card-text');
-  nuevaDescripcion.textContent = descripcion;
+    const nuevaDescripcion = document.createElement('p');
+    nuevaDescripcion.classList.add('card-text');
+    nuevaDescripcion.textContent = descripcion;
 
-  const enlaceLeerMas = document.createElement('a');
-  enlaceLeerMas.classList.add('card-link');
-  enlaceLeerMas.href = '#';
-  enlaceLeerMas.textContent = 'Ver mas';
-  enlaceLeerMas.addEventListener('click', () => {
-    // Redireccionar a la página de detalle del evento
-    window.location.href = `/front_empresa/publicacion.html?id=${postId}`;
-  });
+    const enlaceLeerMas = document.createElement('a');
+    enlaceLeerMas.classList.add('card-link');
+    enlaceLeerMas.href = '#';
+    enlaceLeerMas.textContent = 'Ver más';
+    enlaceLeerMas.addEventListener('click', () => {
+        if (postId) {
+            console.log("Post ID:", postId); // Verifica que el valor sea correcto
+            window.location.href = `/front_empresa/publicacion.html?id=${postId}`;
+        } else {
+            console.error('Post ID es undefined');
+        }
+    });
 
   const eliminar = document.createElement('button');
   eliminar.classList.add('card-link');
@@ -110,20 +120,6 @@
       }
     });
   }
-
-  // Añadir evento al enlace para abrir la modal de comentarios
-  enlaceLeerMas.addEventListener('click', (event) => {
-    event.preventDefault();
-    const modal = document.getElementById('comentariosModal');
-    modal.style.display = 'block'; // Muestra la modal
-    cargarComentarios(postId);
-  });
-
-//   const closeButton = document.querySelector('.close');
-//   closeButton.addEventListener('click', () => {
-//     const modal = document.getElementById('comentariosModal');
-//     modal.style.display = 'none'; // Oculta la modal
-//   });
 
   // Cerrar la modal si se hace clic fuera de la modal
   window.addEventListener('click', (event) => {
